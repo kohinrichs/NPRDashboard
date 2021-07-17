@@ -52,7 +52,7 @@ namespace NPRDashboard.Repositories
             }
         }
 
-        // Get List of Gifts By PledgeDriveId 
+        // Get List Number of Donors Who Gave Number Of Gifts PledgeDriveId 
         public List<KeyValuePair<int, int>> GetNumOfDonAndNumOfGifts(DateTime pledgeDriveEndDate)
         {
             using (var conn = Connection)
@@ -78,6 +78,39 @@ namespace NPRDashboard.Repositories
                     while (reader.Read())
                     {
                         donorList.Add(new KeyValuePair<int, int>(DbUtils.GetInt(reader, "NumberOfGifts"), DbUtils.GetInt(reader, "NumberOfDonors")));
+                    }
+                    reader.Close();
+
+                    return donorList;
+                }
+            }
+        }
+
+        // Get List of Number of Recurring Gifts and One Time Gifts By Pledge Drive 
+        public List<KeyValuePair<string, int>> GetNumOfGiftsByFrequency(int pledgeDriveId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT SUBQUERY.[Name] as FrequencyName, COUNT(SUBQUERY.Id) as NumberOfGifts FROM
+			                        (SELECT g.Id, g.FrequencyId, f.[Name]
+			                        FROM Gift g
+									LEFT JOIN Frequency f on g.FrequencyId = f.Id
+			                        WHERE PledgeDriveId = @Id) AS SUBQUERY
+	                        Group BY SUBQUERY.[Name]";
+
+                    DbUtils.AddParameter(cmd, "@Id", pledgeDriveId);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var donorList = new List<KeyValuePair<string, int>>();
+
+                    while (reader.Read())
+                    {
+                        donorList.Add(new KeyValuePair<string, int>(DbUtils.GetString(reader, "FrequencyName"), DbUtils.GetInt(reader, "NumberOfGifts")));
                     }
                     reader.Close();
 

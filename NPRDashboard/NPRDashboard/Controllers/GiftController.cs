@@ -30,6 +30,12 @@ namespace NPRDashboard.Controllers
             return Ok(_giftRepository.GetNumOfDonAndNumOfGifts(pledgeDriveEndDate));
         }
 
+        [HttpGet("getnumofgiftsbyfrequency/{pledgeDriveId}")]
+        public IActionResult GetNumOfGiftsByFrequency(int pledgeDriveId)
+        {
+            return Ok(_giftRepository.GetNumOfGiftsByFrequency(pledgeDriveId));
+        }
+
         [HttpGet("getnewrecurringgifts/{pledgeDriveStartDate}/{pledgeDriveEndDate}")]
         public IActionResult NewRecurringGifts(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate)
         {

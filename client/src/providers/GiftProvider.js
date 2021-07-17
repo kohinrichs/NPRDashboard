@@ -15,11 +15,19 @@ export const GiftProvider = (props) => {
             .then((res) => res.json())
     };
 
+    const getNumOfGiftsByFrequency = (pledgeDriveId) => {
+        return fetch(`/api/gift/getgiftbyfrequency/${pledgeDriveId}`, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+    };
+
     return (
         <GiftContext.Provider
             value={{
                 gift,
-                getAllGiftsByPledgeDriveId
+                getAllGiftsByPledgeDriveId,
+                getNumOfGiftsByFrequency
             }}>
             {props.children}
         </GiftContext.Provider>

@@ -6,16 +6,24 @@ export const PledgeDriveProvider = (props) => {
     const [pledgeDrive, setPledgeDrive] = useState([]);
 
     const getAllPledgeDrives = () => {
-        return fetch("/api/pledgeDrives")
+        return fetch("/api/pledgeDrive")
             .then((res) => res.json())
             .then(setPledgeDrive);
+    };
+
+    const getPledgeDriveById = (pledgeDriveId) => {
+        return fetch(`/api/pledgedrive/${pledgeDriveId}`, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
     };
 
     return (
         <PledgeDriveContext.Provider
             value={{
                 pledgeDrive,
-                getAllPledgeDrives
+                getAllPledgeDrives,
+                getPledgeDriveById
             }}>
             {props.children}
         </PledgeDriveContext.Provider>

@@ -29,6 +29,7 @@ namespace NPRDashboard
         {
             services.AddTransient<IGiftRepository, GiftRepository>();
             services.AddTransient<IPledgeDriveRepository, PledgeDriveRespository>();
+            services.AddTransient<IFrequencyRepository, FrequencyRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

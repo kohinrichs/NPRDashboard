@@ -11,11 +11,19 @@ export const PledgeDriveProvider = (props) => {
             .then(setPledgeDrive);
     };
 
+    const getPledgeDriveById = (pledgeDriveId) => {
+        return fetch(`/api/pledgedrive/${pledgeDriveId}`, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+    };
+
     return (
         <PledgeDriveContext.Provider
             value={{
                 pledgeDrive,
-                getAllPledgeDrives
+                getAllPledgeDrives,
+                getPledgeDriveById
             }}>
             {props.children}
         </PledgeDriveContext.Provider>

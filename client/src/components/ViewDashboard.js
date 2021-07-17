@@ -4,6 +4,7 @@ import { Container, Col, FormGroup, Label, Input, Table } from 'reactstrap';
 import { GiftContext } from "../providers/GiftProvider";
 import { PledgeDriveContext } from "../providers/PledgeDriveProvider";
 import { FrequencyContext } from '../providers/FrequencyProvider';
+import { GiftTable } from './GiftTable'
 
 export const ViewDashboard = () => {
 
@@ -15,11 +16,16 @@ export const ViewDashboard = () => {
 
     const [currentPledgeDrive, setCurrentPledgeDrive] = useState();
     const [gifts, setGifts] = useState([]);
+    const [visibleGifts, setVisibleGifts] = useState([]);
 
     useEffect(() => {
         getAllPledgeDrives()
             .then(getAllFrequencies)
     }, []);
+
+    useEffect(() => {
+        setVisibleGifts(gifts)
+    }, [gifts])
 
     const dateFormatter = (date) => {
         const allDate = date.split('T')
@@ -30,6 +36,21 @@ export const ViewDashboard = () => {
         const day = ymdDate[2];
 
         return month + '-' + day + '-' + year;
+    };
+
+    // would it make more sense to hit the API again?
+    const filterPledgeDriveTable = (e) => {
+        if (parseInt(e.target.value) == 0) {
+            setVisibleGifts(gifts)
+        } else if (parseInt(e.target.value) == 1) {
+            const oneTime = gifts.filter(g => g.frequencyId === 1)
+            setVisibleGifts(oneTime)
+        } else if (parseInt(e.target.value) == 2) {
+            const sustaining = gifts.filter(g => g.frequencyId === 2)
+            setVisibleGifts(sustaining)
+        } else {
+            setVisibleGifts(gifts)
+        }
     };
 
     return (
@@ -65,6 +86,12 @@ export const ViewDashboard = () => {
                     </Col>
                 </div>
 
+                {/* <div>
+                    {currentPledgeDrive ?
+                        <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive} /> : null
+                    }
+                </div> */}
+
                 {
                     gifts.length > 0 ?
                         <Container>
@@ -78,16 +105,7 @@ export const ViewDashboard = () => {
                                     name="filterPledgeDriveTable"
                                     id="filterPledgeDriveTable"
                                     value={frequency.name}
-                                    onChange={(e) => {
-                                        // if value is 0, get gifts by pledgedriveId, else getgifts by frequency or filter here 
-                                        // and update the state gifts state - reduce trips to the datatbase
-                                        if (e.target.value === 0) {
-                                            getAllGiftsByPledgeDriveId(parseInt(e.target.value))
-                                                .then(setGifts)
-                                        } else {
-
-                                        }
-                                    }}
+                                    onChange={(e) => filterPledgeDriveTable(e)}
                                 >
                                     <option value="0">All</option>
                                     {frequency.map((f) => {
@@ -113,7 +131,7 @@ export const ViewDashboard = () => {
                                 </thead>
                                 <tbody>
                                     {
-                                        gifts.map(g => {
+                                        visibleGifts.length > 0 ? visibleGifts.map(g => {
                                             return <tr key={g.id}>
                                                 <td>{g.donorProfile.lastName}</td>
                                                 <td>{g.donorProfile.firstName}</td>
@@ -121,7 +139,7 @@ export const ViewDashboard = () => {
                                                 <td>{dateFormatter(g.giftDate)}</td>
                                                 <td>{g.frequency.name}</td>
                                             </tr>
-                                        })
+                                        }) : "No gifts match this filter."
                                     }
                                 </tbody>
                             </Table>

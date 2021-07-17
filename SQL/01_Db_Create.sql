@@ -11,7 +11,7 @@ GO
 DROP TABLE IF EXISTS [DonorProfile];
 DROP TABLE IF EXISTS [PledgeDrive];
 DROP TABLE IF EXISTS [Gift];
-DROP TABLE IF EXISTS [Type];
+DROP TABLE IF EXISTS [DonationType];
 DROP TABLE IF EXISTS [Reason];
 DROP TABLE IF EXISTS [Method];
 DROP TABLE IF EXISTS [Frequency];
@@ -35,8 +35,8 @@ GO
 CREATE TABLE [PledgeDrive] (
   [Id] int PRIMARY KEY IDENTITY,
   [Name] nvarchar(255) NOT NULL,
-  [StartDate] datetime NOT NULL,
-  [EndDate] datetime NOT NULL,
+  [StartDate] date NOT NULL,
+  [EndDate] date NOT NULL,
   [Goal] int NOT NULL
 )
 GO
@@ -45,9 +45,9 @@ CREATE TABLE [Gift] (
   [Id] int PRIMARY KEY IDENTITY,
   [DonorProfileId] int NOT NULL,
   [PledgeDriveId] int NOT NULL,
-  [GiftDate] datetime NOT NULL,
+  [GiftDate] date NOT NULL,
   [Amount] decimal NOT NULL,
-  [TypeId] int NOT NULL,
+  [DonationTypeId] int NOT NULL,
   [ReasonId] int,
   [MethodId] int NOT NULL,
   [FrequencyId] int NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE [Gift] (
 )
 GO
 
-CREATE TABLE [Type] (
+CREATE TABLE [DonationType] (
   [Id] int PRIMARY KEY IDENTITY,
   [Name] nvarchar(255) NOT NULL
 )
@@ -91,7 +91,7 @@ GO
 ALTER TABLE [Gift] ADD FOREIGN KEY ([PledgeDriveId]) REFERENCES [PledgeDrive] ([Id])
 GO
 
-ALTER TABLE [Gift] ADD FOREIGN KEY ([TypeId]) REFERENCES [Type] ([Id])
+ALTER TABLE [Gift] ADD FOREIGN KEY ([DonationTypeId]) REFERENCES [DonationType] ([Id])
 GO
 
 ALTER TABLE [Gift] ADD FOREIGN KEY ([ReasonId]) REFERENCES [Reason] ([Id])

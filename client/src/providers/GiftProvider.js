@@ -13,7 +13,6 @@ export const GiftProvider = (props) => {
             method: 'GET',
         })
             .then((res) => res.json())
-            .then(setGift);
     };
 
     return (

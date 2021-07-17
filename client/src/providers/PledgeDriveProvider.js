@@ -6,7 +6,7 @@ export const PledgeDriveProvider = (props) => {
     const [pledgeDrive, setPledgeDrive] = useState([]);
 
     const getAllPledgeDrives = () => {
-        return fetch("/api/pledgeDrives")
+        return fetch("/api/pledgeDrive")
             .then((res) => res.json())
             .then(setPledgeDrive);
     };

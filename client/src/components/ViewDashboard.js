@@ -8,49 +8,54 @@ export const ViewDashboard = () => {
 
     const history = useHistory();
 
+    const { pledgeDrive, getAllPledgeDrives } = useContext(PledgeDriveContext);
     const { getAllGiftsByPledgeDriveId } = useContext(GiftContext);
 
     const [gifts, setGifts] = useState([]);
 
     useEffect(() => {
-        getAllGiftsByPledgeDriveId(5)
-            .then(setGifts)
-        // getAllPledgeDrives()
+        getAllPledgeDrives()
     }, []);
 
-    // const dateFormatter = (date) => {
-    //     const [yyyymmdd] = date.split('T');
-    //     return yyyymmdd;
-    // };
+    const dateFormatter = (date) => {
+        const allDate = date.split('T')
+        const ymdDate = allDate[0].split('-')
+
+        const year = ymdDate[0];
+        const month = ymdDate[1];
+        const day = ymdDate[2];
+
+        return month + '-' + day + '-' + year;
+    };
 
     return (
         <>
             <Container className="col-sm-6 col-lg-10 justify-content-center">
                 <div className="ordersHeader">
                     <h2>View Gifts By Pledge Drive</h2>
-                    {/* <Col xs="6">
+                    <Col xs="6">
                         <FormGroup>
                             <Input
                                 type="select"
-                                name="holiday"
-                                id="holiday"
-                                value={holiday.name}
+                                name="pledgeDrive"
+                                id="pledgeDrive"
+                                value={pledgeDrive.name}
                                 onChange={(e) => {
-                                    getAllOrdersByHolidayId(parseInt(e.target.value))
-                                        .then(setOrders)
+                                    getAllGiftsByPledgeDriveId(parseInt(e.target.value))
+                                        .then(setGifts)
                                 }}
                             >
                                 <option value="0">Select A Pledge Drive</option>
-                                {holiday.map((h) => {
+                                {pledgeDrive.map((pd) => {
                                     return (
-                                        <option key={h.id} value={h.id}>
-                                            {h.name} - {dateFormatter(h.date)}
+                                        <option key={pd.id} value={pd.id}>
+                                            {pd.name}
                                         </option>
                                     );
                                 })}
                             </Input>
                         </FormGroup>
-                    </Col> */}
+                    </Col>
                 </div>
 
                 {
@@ -59,6 +64,9 @@ export const ViewDashboard = () => {
                             <tr>
                                 <th>Last Name</th>
                                 <th>First Name</th>
+                                <th>Amount</th>
+                                <th>Gift Date</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -67,6 +75,8 @@ export const ViewDashboard = () => {
                                     return <tr key={g.id}>
                                         <td>{g.donorProfile.lastName}</td>
                                         <td>{g.donorProfile.firstName}</td>
+                                        <td>${g.amount}</td>
+                                        <td>{dateFormatter(g.giftDate)}</td>
                                     </tr>
                                 })
                             }
@@ -75,5 +85,5 @@ export const ViewDashboard = () => {
                 }
             </Container >
         </>
-    )
+    );
 }

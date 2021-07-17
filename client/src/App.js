@@ -4,13 +4,16 @@ import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import ApplicationViews from './components/ApplicationViews';
 import { GiftProvider } from './providers/GiftProvider';
+import { PledgeDriveProvider } from './providers/PledgeDriveProvider';
 
 function App() {
   return (
     <Router>
-      <GiftProvider>
-        <ApplicationViews />
-      </GiftProvider>
+      <PledgeDriveProvider>
+        <GiftProvider>
+          <ApplicationViews />
+        </GiftProvider>
+      </PledgeDriveProvider>
     </Router>
   );
 }

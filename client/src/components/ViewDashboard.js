@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Container, Col, FormGroup, Label, Input, Table } from 'reactstrap';
 import { GiftContext } from "../providers/GiftProvider";
 import { PledgeDriveContext } from "../providers/PledgeDriveProvider";
+import { FrequencyContext } from '../providers/FrequencyProvider';
 
 export const ViewDashboard = () => {
 
@@ -10,12 +11,14 @@ export const ViewDashboard = () => {
 
     const { pledgeDrive, getAllPledgeDrives, getPledgeDriveById } = useContext(PledgeDriveContext);
     const { getAllGiftsByPledgeDriveId } = useContext(GiftContext);
+    const { frequency, getAllFrequencies } = useContext(FrequencyContext);
 
     const [currentPledgeDrive, setCurrentPledgeDrive] = useState();
     const [gifts, setGifts] = useState([]);
 
     useEffect(() => {
         getAllPledgeDrives()
+            .then(getAllFrequencies)
     }, []);
 
     const dateFormatter = (date) => {
@@ -68,6 +71,35 @@ export const ViewDashboard = () => {
                             <h3>{currentPledgeDrive.name}</h3>
                             <h4>Dates: {dateFormatter(currentPledgeDrive.startDate)} to {dateFormatter(currentPledgeDrive.endDate)}</h4>
                             <h4>Goal: ${currentPledgeDrive.goal}</h4>
+
+                            <FormGroup>
+                                <Input
+                                    type="select"
+                                    name="filterPledgeDriveTable"
+                                    id="filterPledgeDriveTable"
+                                    value={frequency.name}
+                                    onChange={(e) => {
+                                        // if value is 0, get gifts by pledgedriveId, else getgifts by frequency or filter here 
+                                        // and update the state gifts state - reduce trips to the datatbase
+                                        if (e.target.value === 0) {
+                                            getAllGiftsByPledgeDriveId(parseInt(e.target.value))
+                                                .then(setGifts)
+                                        } else {
+
+                                        }
+                                    }}
+                                >
+                                    <option value="0">All</option>
+                                    {frequency.map((f) => {
+                                        return (
+                                            <option key={f.id} value={f.id}>
+                                                {f.name}
+                                            </option>
+                                        );
+                                    })}
+                                </Input>
+                            </FormGroup>
+
                             <Table hover bordered>
                                 <thead>
                                     <tr>

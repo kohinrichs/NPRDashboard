@@ -21,12 +21,12 @@ export const ViewDashboard = () => {
 
     useEffect(() => {
         getAllPledgeDrives()
-            .then(getAllFrequencies)
+        // .then(getAllFrequencies)
     }, []);
 
-    useEffect(() => {
-        setVisibleGifts(gifts)
-    }, [gifts])
+    // useEffect(() => {
+    //     setVisibleGifts(gifts)
+    // }, [gifts])
 
     const dateFormatter = (date) => {
         const allDate = date.split('T')
@@ -87,17 +87,18 @@ export const ViewDashboard = () => {
                     </Col>
                 </div>
 
-                {/* <div>
+                <div>
                     {currentPledgeDrive ?
-                        <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive} /> : null
+                        <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive}
+                            key={gifts} gifts={gifts} /> : null
                     }
-                </div> */}
+                </div>
 
                 {
                     currentPledgeDrive ? <RecurringVsOneTime /> : null
                 }
 
-                {
+                {/* {
                     gifts.length > 0 ?
                         <Container>
                             <h3>{currentPledgeDrive.name}</h3>
@@ -167,7 +168,7 @@ export const ViewDashboard = () => {
                                 %
                             </h6>
                         </Container> : <h4 className="noOrders">There are no gifts for this pledge drive.</h4>
-                }
+                } */}
             </Container >
         </>
     );

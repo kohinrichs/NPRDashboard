@@ -9,7 +9,8 @@ namespace NPRDashboard.Repositories
     public interface IGiftRepository
     {
         List<Gift> GetGiftsByPledgeDriveId(int pledgeDriveId);
-        List<KeyValuePair<int, int>> GetNumOfDonAndNumOfGifts(DateTime pledgeDriveEndDate);
+        Dictionary<string, int> GetNumOfGiftsByFrequency(int pledgeDriveId);
+        Dictionary<int, int> GetNumOfDonorsAndNumOfGift(DateTime pledgeDriveEndDate);
         List<Gift> NewRecurringGifts(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate);
         List<Gift> GetListOfOneTimeGiftsBySameDonor(DateTime pledgeDriveEndDate);
 

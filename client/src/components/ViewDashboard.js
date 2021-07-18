@@ -5,6 +5,7 @@ import { PledgeDriveContext } from "../providers/PledgeDriveProvider";
 import { FrequencyContext } from '../providers/FrequencyProvider';
 import { GiftTable } from './GiftTable'
 import { RecurringVsOneTime } from './Charts/RecurringVsOneTime'
+import { NumOfDonorsAndNumOfGifts } from './Charts/NumOfDonorsAndNumOfGifts';
 
 export const ViewDashboard = () => {
 
@@ -62,6 +63,11 @@ export const ViewDashboard = () => {
                 {
                     currentPledgeDrive ?
                         <RecurringVsOneTime key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive} /> : null
+                }
+
+                {
+                    currentPledgeDrive ?
+                        <NumOfDonorsAndNumOfGifts key={currentPledgeDrive.id + 1} currentPledgeDrive={currentPledgeDrive} /> : null
                 }
             </Container >
         </>

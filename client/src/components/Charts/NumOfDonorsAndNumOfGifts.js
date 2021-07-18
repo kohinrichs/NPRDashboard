@@ -2,28 +2,34 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
 import { GiftContext } from '../../providers/GiftProvider';
 
-export const RecurringVsOneTime = ({ currentPledgeDrive }) => {
+export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
 
-    const { getNumOfGiftsByFrequency } = useContext(GiftContext);
+    const { getNumOfDonorsAndNumOfGift } = useContext(GiftContext);
 
-    const [giftsByFrequency, setGiftsByFrequency] = useState();
+    const [numOfGifts, setNumOfGifts] = useState();
 
-    const currentPledgeDriveId = currentPledgeDrive.id;
+    const dateFormatter = (date) => {
+        const allDate = date.split('T')
+        return allDate[0];
+    };
+
+    const currentPledgeDriveEndDate = dateFormatter(currentPledgeDrive.endDate);
 
     useEffect(() => {
-        getNumOfGiftsByFrequency(currentPledgeDriveId)
-            .then(setGiftsByFrequency)
+        getNumOfDonorsAndNumOfGift(currentPledgeDriveEndDate)
+            .then(setNumOfGifts)
     }, []);
+
 
     let labelsForChart = [];
     let dataForChart = [];
 
-    if (giftsByFrequency) {
-        const keys = Object.keys(giftsByFrequency);
+    if (numOfGifts) {
+        const keys = Object.keys(numOfGifts);
         for (let i = 0; i < keys.length; i++) {
             const key = keys[i];
             labelsForChart.push(key);
-            dataForChart.push(giftsByFrequency[key]);
+            dataForChart.push(numOfGifts[key]);
         }
     }
 
@@ -31,7 +37,7 @@ export const RecurringVsOneTime = ({ currentPledgeDrive }) => {
         labels: labelsForChart,
         datasets: [
             {
-                label: '# of Donors',
+                label: 'Number Of Gifts Given By Donors Over Time',
                 data: dataForChart,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',

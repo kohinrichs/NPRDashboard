@@ -9,7 +9,7 @@ export const GiftProvider = (props) => {
     const history = useHistory();
 
     const getAllGiftsByPledgeDriveId = (pledgeDriveId) => {
-        return fetch(`/api/gift/getbypledgedriveid/${pledgeDriveId}`, {
+        return fetch(`/api/gift/getgiftsbypledgedriveid/${pledgeDriveId}`, {
             method: 'GET',
         })
             .then((res) => res.json())
@@ -22,12 +22,20 @@ export const GiftProvider = (props) => {
             .then((res) => res.json())
     };
 
+    const getNumOfDonorsAndNumOfGift = (pledgeDriveEndDate) => {
+        return fetch(`/api/gift/getnumofdonorsbynumofgifts/${pledgeDriveEndDate}`, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+    };
+
     return (
         <GiftContext.Provider
             value={{
                 gift,
                 getAllGiftsByPledgeDriveId,
-                getNumOfGiftsByFrequency
+                getNumOfGiftsByFrequency,
+                getNumOfDonorsAndNumOfGift
             }}>
             {props.children}
         </GiftContext.Provider>

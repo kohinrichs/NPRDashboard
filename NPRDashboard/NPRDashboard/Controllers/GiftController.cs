@@ -18,22 +18,25 @@ namespace NPRDashboard.Controllers
             _giftRepository = giftRepository;
         }
 
-        [HttpGet("getbypledgedriveid/{pledgeDriveId}")]
+        // #1
+        [HttpGet("getgiftsbypledgedriveid/{pledgeDriveId}")]
         public IActionResult GetGiftsByPledgeDriveId(int pledgeDriveId)
         {
             return Ok(_giftRepository.GetGiftsByPledgeDriveId(pledgeDriveId));
         }
 
-        [HttpGet("getbynumberofdonations/{pledgeDriveEndDate}")]
-        public IActionResult GetGiftsByPledgeDriveId(DateTime pledgeDriveEndDate)
-        {
-            return Ok(_giftRepository.GetNumOfDonAndNumOfGifts(pledgeDriveEndDate));
-        }
-
+        // #2
         [HttpGet("getnumofgiftsbyfrequency/{pledgeDriveId}")]
         public IActionResult GetNumOfGiftsByFrequency(int pledgeDriveId)
         {
             return Ok(_giftRepository.GetNumOfGiftsByFrequency(pledgeDriveId));
+        }
+
+        // #3
+        [HttpGet("getnumofdonorsbynumofgifts/{pledgeDriveEndDate}")]
+        public IActionResult GetNumOfDonorsAndNumOfGift(DateTime pledgeDriveEndDate)
+        {
+            return Ok(_giftRepository.GetNumOfDonorsAndNumOfGift(pledgeDriveEndDate));
         }
 
         [HttpGet("getnewrecurringgifts/{pledgeDriveStartDate}/{pledgeDriveEndDate}")]

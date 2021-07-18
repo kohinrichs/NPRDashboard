@@ -13,7 +13,7 @@ namespace NPRDashboard.Repositories
     {
         public GiftRepository(IConfiguration configuration) : base(configuration) { }
 
-        // Get List of Gifts By PledgeDriveId 
+        // #1 Get List of Gifts By PledgeDriveId 
         public List<Gift> GetGiftsByPledgeDriveId(int pledgeDriveId)
         {
             using (var conn = Connection)
@@ -52,41 +52,7 @@ namespace NPRDashboard.Repositories
             }
         }
 
-        // Get List Number of Donors Who Gave Number Of Gifts PledgeDriveId 
-        public List<KeyValuePair<int, int>> GetNumOfDonAndNumOfGifts(DateTime pledgeDriveEndDate)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                        SELECT Count(*) as NumberOfDonors, SUBQUERY.NumberOfGifts FROM
-	                        (SELECT SUBQUERY.DonorProfileId, COUNT(SUBQUERY.Id) as NumberOfGifts FROM
-			                        (SELECT g.Id, g.DonorProfileId
-			                        FROM Gift g
-			                        WHERE GiftDate <= @EndDate) AS SUBQUERY
-	                        Group BY SUBQUERY.DonorProfileId) AS SUBQUERY
-	                        GROUP BY SUBQUERY.NumberOfGifts";
-
-                    DbUtils.AddParameter(cmd, "@EndDate", pledgeDriveEndDate);
-
-                    var reader = cmd.ExecuteReader();
-
-                    var donorList = new List<KeyValuePair<int, int>> ();
-
-                    while (reader.Read())
-                    {
-                        donorList.Add(new KeyValuePair<int, int>(DbUtils.GetInt(reader, "NumberOfGifts"), DbUtils.GetInt(reader, "NumberOfDonors")));
-                    }
-                    reader.Close();
-
-                    return donorList;
-                }
-            }
-        }
-
-        // Get List of Number of Recurring Gifts and One Time Gifts By Pledge Drive 
+        // #2 Get Number of Recurring Gifts and One Time Gifts By Pledge Drive 
         public Dictionary<string, int> GetNumOfGiftsByFrequency(int pledgeDriveId)
         {
             using (var conn = Connection)
@@ -110,10 +76,47 @@ namespace NPRDashboard.Repositories
 
                     while (reader.Read())
                     {
-                       string FrequencyName = DbUtils.GetString(reader, "FrequencyName");
-                       int NumberOfGifts = DbUtils.GetInt(reader, "NumberOfGifts");
-                        
+                        string FrequencyName = DbUtils.GetString(reader, "FrequencyName");
+                        int NumberOfGifts = DbUtils.GetInt(reader, "NumberOfGifts");
+
                         donorList.Add(FrequencyName, NumberOfGifts);
+                    }
+                    reader.Close();
+
+                    return donorList;
+                }
+            }
+        }
+
+        // #3 Get List Number of Donors Who Gave Number Of Gifts
+        public Dictionary<int, int> GetNumOfDonorsAndNumOfGift(DateTime pledgeDriveEndDate)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT Count(*) as NumberOfDonors, SUBQUERY.NumberOfGifts FROM
+	                        (SELECT SUBQUERY.DonorProfileId, COUNT(SUBQUERY.Id) as NumberOfGifts FROM
+			                        (SELECT g.Id, g.DonorProfileId
+			                        FROM Gift g
+			                        WHERE GiftDate <= @EndDate) AS SUBQUERY
+	                        Group BY SUBQUERY.DonorProfileId) AS SUBQUERY
+	                        GROUP BY SUBQUERY.NumberOfGifts";
+
+                    DbUtils.AddParameter(cmd, "@EndDate", pledgeDriveEndDate);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var donorList = new Dictionary<int, int>();
+
+                    while (reader.Read())
+                    {
+                        int NumberOfGifts = DbUtils.GetInt(reader, "NumberOfGifts");
+                        int NumberOfDonors = DbUtils.GetInt(reader, "NumberOfDonors");
+
+                        donorList.Add(NumberOfGifts, NumberOfDonors);
                     }
                     reader.Close();
 

@@ -22,7 +22,7 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
 
     let counter = 0;
 
-    return numOfGifts ? (
+    return numOfGifts && numOfGifts.length > 0 ? (
         <>
             <div className='header'>
                 <h1 className='title'>Pie Chart</h1>

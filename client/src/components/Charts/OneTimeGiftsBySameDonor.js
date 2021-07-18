@@ -41,7 +41,7 @@ export const OneTimeGiftsBySameDonor = ({ currentPledgeDrive }) => {
         }
     }
 
-    return gifts ? (
+    return gifts && gifts.length > 0 ? (
         <>
             <div className='header'>
                 <h1 className='title'>Pie Chart</h1>

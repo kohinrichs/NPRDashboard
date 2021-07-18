@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NPRDashboard.Models;
 using NPRDashboard.Repositories;
 using System;
 using System.Collections.Generic;
@@ -39,12 +40,14 @@ namespace NPRDashboard.Controllers
             return Ok(_giftRepository.GetNumOfDonorsAndNumOfGift(pledgeDriveEndDate));
         }
 
-        [HttpGet("getnewrecurringgifts/{pledgeDriveStartDate}/{pledgeDriveEndDate}")]
-        public IActionResult NewRecurringGifts(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate)
+        // #4 
+        [HttpGet("getnewrecurringgiftsfrompreviousdonors/{pledgeDriveStartDate}/{pledgeDriveEndDate}")]
+        public IActionResult GetNewRecurringGiftsFromPreviousDonors(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate)
         {
-            return Ok(_giftRepository.NewRecurringGifts(pledgeDriveStartDate, pledgeDriveEndDate));
+            return Ok(_giftRepository.GetNewRecurringGiftsFromPreviousDonors(pledgeDriveStartDate, pledgeDriveEndDate));
         }
 
+        // #5
         [HttpGet("getlistofonetimegiftsbysamedonor/{pledgeDriveEndDate}")]
         public IActionResult GetListOfOneTimeGiftsBySameDonor(DateTime pledgeDriveEndDate)
         {

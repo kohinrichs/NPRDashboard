@@ -125,7 +125,7 @@ namespace NPRDashboard.Repositories
             }
         }
 
-        // Get List of New Recurring Gifts
+        // #4  New recurring gifts from previous donors
         public List<Gift> NewRecurringGifts(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate)
         {
             using (var conn = Connection)
@@ -174,7 +174,7 @@ namespace NPRDashboard.Repositories
         }
 
 
-        // Get List of New Recurring Gifts
+        // List Of One Time Gift By Same Donor
         public List<Gift> GetListOfOneTimeGiftsBySameDonor(DateTime pledgeDriveEndDate)
         {
             using (var conn = Connection)

@@ -87,7 +87,7 @@ namespace NPRDashboard.Repositories
         }
 
         // Get List of Number of Recurring Gifts and One Time Gifts By Pledge Drive 
-        public List<KeyValuePair<string, int>> GetNumOfGiftsByFrequency(int pledgeDriveId)
+        public Dictionary<string, int> GetNumOfGiftsByFrequency(int pledgeDriveId)
         {
             using (var conn = Connection)
             {
@@ -106,11 +106,14 @@ namespace NPRDashboard.Repositories
 
                     var reader = cmd.ExecuteReader();
 
-                    var donorList = new List<KeyValuePair<string, int>>();
+                    var donorList = new Dictionary<string, int>();
 
                     while (reader.Read())
                     {
-                        donorList.Add(new KeyValuePair<string, int>(DbUtils.GetString(reader, "FrequencyName"), DbUtils.GetInt(reader, "NumberOfGifts")));
+                       string FrequencyName = DbUtils.GetString(reader, "FrequencyName");
+                       int NumberOfGifts = DbUtils.GetInt(reader, "NumberOfGifts");
+                        
+                        donorList.Add(FrequencyName, NumberOfGifts);
                     }
                     reader.Close();
 

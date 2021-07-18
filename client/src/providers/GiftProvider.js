@@ -16,7 +16,7 @@ export const GiftProvider = (props) => {
     };
 
     const getNumOfGiftsByFrequency = (pledgeDriveId) => {
-        return fetch(`/api/gift/getgiftbyfrequency/${pledgeDriveId}`, {
+        return fetch(`/api/gift/getnumofgiftsbyfrequency/${pledgeDriveId}`, {
             method: 'GET',
         })
             .then((res) => res.json())

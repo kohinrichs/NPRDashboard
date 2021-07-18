@@ -1,20 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Container, Col, FormGroup, Label, Input, Table } from 'reactstrap';
-import { GiftContext } from "../providers/GiftProvider";
-import { PledgeDriveContext } from "../providers/PledgeDriveProvider";
 import { FrequencyContext } from '../providers/FrequencyProvider';
 
 
 export const GiftTable = ({ currentPledgeDrive, gifts }) => {
-    const history = useHistory();
 
-    // const { pledgeDrive, getAllPledgeDrives, getPledgeDriveById } = useContext(PledgeDriveContext);
-    // const { getAllGiftsByPledgeDriveId } = useContext(GiftContext);
     const { frequency, getAllFrequencies } = useContext(FrequencyContext);
 
-    // const [currentPledgeDrive, setCurrentPledgeDrive] = useState();
-    // const [gifts, setGifts] = useState([]);
     const [visibleGifts, setVisibleGifts] = useState([]);
 
     useEffect(() => {

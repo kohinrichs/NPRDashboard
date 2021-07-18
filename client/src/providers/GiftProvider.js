@@ -36,6 +36,13 @@ export const GiftProvider = (props) => {
             .then((res) => res.json())
     };
 
+    const getListOfOneTimeGiftsBySameDonor = (pledgeDriveEndDate) => {
+        return fetch(`/api/gift/getlistofonetimegiftsbysamedonor/${pledgeDriveEndDate}`, {
+            method: 'GET',
+        })
+            .then((res) => res.json())
+    };
+
     return (
         <GiftContext.Provider
             value={{
@@ -43,7 +50,8 @@ export const GiftProvider = (props) => {
                 getAllGiftsByPledgeDriveId,
                 getNumOfGiftsByFrequency,
                 getNumOfDonorsAndNumOfGift,
-                getNewRecurringGiftsFromPreviousDonors
+                getNewRecurringGiftsFromPreviousDonors,
+                getListOfOneTimeGiftsBySameDonor
             }}>
             {props.children}
         </GiftContext.Provider>

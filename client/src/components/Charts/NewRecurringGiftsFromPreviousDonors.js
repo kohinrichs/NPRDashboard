@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Doughnut } from 'react-chartjs-2';
 import { GiftContext } from '../../providers/GiftProvider';
 
 export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
@@ -21,27 +20,7 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
             .then(setNumOfGifts)
     }, []);
 
-    console.log(numOfGifts)
-
-    let printImages = () => {
-        for (let i = 0; i < numOfGifts.length; i++) {
-            <div>[i]</div>
-        }
-    }
-
-    // let labelsForChart = [];
-    // let dataForChart = [];
-
-    // if (numOfGifts) {
-    //     const keys = Object.keys(numOfGifts);
-    //     for (let i = 0; i < keys.length; i++) {
-    //         const key = keys[i];
-    //         labelsForChart.push(key);
-    //         dataForChart.push(numOfGifts[key]);
-    //     }
-    // }
-
-    // getting an array of objects from the db. Need to iterate through the array an print something for each object
+    let counter = 0;
 
     return numOfGifts ? (
         <>
@@ -50,9 +29,13 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
                 <div className='links'>
                     {
                         numOfGifts.map(g => {
-                            return <div>"a"</div>
+                            counter++
+                            return <div key={g.id}>a</div>
                         })
                     }
+                </div>
+                <div>
+                    {counter} new sustaining memberships from previous donors
                 </div>
             </div>
         </>

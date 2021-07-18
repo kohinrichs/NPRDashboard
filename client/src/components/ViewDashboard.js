@@ -7,6 +7,7 @@ import { GiftTable } from './GiftTable'
 import { RecurringVsOneTime } from './Charts/RecurringVsOneTime'
 import { NumOfDonorsAndNumOfGifts } from './Charts/NumOfDonorsAndNumOfGifts';
 import { NewRecurringGiftsFromPreviousDonor } from './Charts/NewRecurringGiftsFromPreviousDonors';
+import { OneTimeGiftsBySameDonor } from './Charts/OneTimeGiftsBySameDonor';
 
 export const ViewDashboard = () => {
 
@@ -74,6 +75,11 @@ export const ViewDashboard = () => {
                 {
                     currentPledgeDrive ?
                         <NewRecurringGiftsFromPreviousDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null
+                }
+
+                {
+                    currentPledgeDrive ?
+                        <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 3} currentPledgeDrive={currentPledgeDrive} /> : null
                 }
             </Container >
         </>

@@ -54,7 +54,7 @@ Build a small dashboard to tracks the requested metrics metrics
 ## Planning Documentation
 
 ### Concept Sketch 
-<img src="./client/src/components/Images/NPRDashboardConceptSketch.png" alt="NPR Dashboard Concept Sketch" width="100%"></img>
+<img src="./client/src/components/Images/NPRDashboardConceptSketch.jpg" alt="NPR Dashboard Concept Sketch" width="100%"></img>
 
 ### Entity Relationship Diagram
 <img src="./client/src/components/Images/NPRDashboardERD.png" alt="NPR Dashboard ERD" width="100%"></img>

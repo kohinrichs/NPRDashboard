@@ -43,6 +43,8 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
         }
     };
 
+    // Total number of gifts for the Pledge Drive
+    let totalNumberOfGifts = gifts.length;
 
     return currentPledgeDrive ? (
         <>
@@ -55,9 +57,12 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                 <h4>{dateFormatter(currentPledgeDrive.startDate)} to {dateFormatter(currentPledgeDrive.endDate)}</h4>
                             </div>
                             <div className="header2">
-                                <h4>Goal: ${currentPledgeDrive.goal}</h4>
                                 <div>
-                                    <h6 className="totals">Gift Total: $
+                                    <h6>Goal: ${currentPledgeDrive.goal}</h6>
+                                    <h6>Number Of Gifts: {totalNumberOfGifts}</h6>
+                                </div>
+                                <div>
+                                    <h6 className="totals">Pledge Drive Total: $
                                         {
                                             gifts.map((g) => {
                                                 let giftTotal = (g.amount)
@@ -77,27 +82,31 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                     </h6>
                                 </div>
                             </div>
-                            <FormGroup>
-                                <Input
-                                    type="select"
-                                    name="filterPledgeDriveTable"
-                                    id="filterPledgeDriveTable"
-                                    value={frequency.name}
-                                    onChange={(e) => filterPledgeDriveTable(e)}
-                                >
-                                    <option value="0">All</option>
-                                    {frequency.map((f) => {
-                                        return (
-                                            <option key={f.id} value={f.id}>
-                                                {f.name}
-                                            </option>
-                                        );
-                                    })}
-                                </Input>
-                            </FormGroup>
+                            <div className="header3">
+                                <FormGroup>
+                                    <Input
+                                        type="select"
+                                        name="filterPledgeDriveTable"
+                                        id="filterPledgeDriveTable"
+                                        value={frequency.name}
+                                        onChange={(e) => filterPledgeDriveTable(e)}
+                                    >
+                                        <option value="0">All</option>
+                                        {frequency.map((f) => {
+                                            return (
+                                                <option key={f.id} value={f.id}>
+                                                    {f.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </Input>
+                                </FormGroup>
 
-                            <h5>One Time Gift : <i class="fas fa-circle"></i></h5>
-                            <h5>Sustaining Membership: <i class="fas fa-undo-alt"></i></h5>
+                                <div className="header3--a">
+                                    <h6 className="header3--a__legend">One Time Gift : <i class="fas fa-circle"></i></h6>
+                                    <h6 className="header3--a__legend">Sustaining Membership: <i class="fas fa-undo-alt"></i></h6>
+                                </div>
+                            </div>
 
                             <Table hover bordered>
                                 <thead>
@@ -119,7 +128,7 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                                     <td>{g.donorProfile.firstName}</td>
                                                     <td>${g.amount}</td>
                                                     <td>{dateFormatter(g.giftDate)}</td>
-                                                    <td><i className="fas fa-undo-alt"></i></td>
+                                                    <td className="frequencyIcon"><i className="fas fa-undo-alt"></i></td>
                                                 </tr>
 
                                             } else if (g.frequency.name === "One Time") {
@@ -128,7 +137,7 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                                     <td>{g.donorProfile.firstName}</td>
                                                     <td>${g.amount}</td>
                                                     <td>{dateFormatter(g.giftDate)}</td>
-                                                    <td><i className="fas fa-circle"></i></td>
+                                                    <td className="frequencyIcon"><i className="fas fa-circle"></i></td>
                                                 </tr>
                                             } else {
                                                 <tr key={g.id} >
@@ -136,7 +145,7 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                                     <td>{g.donorProfile.firstName}</td>
                                                     <td>${g.amount}</td>
                                                     <td>{dateFormatter(g.giftDate)}</td>
-                                                    <td>{g.frequency.name}</td>
+                                                    <td className="frequencyIcon">{g.frequency.name}</td>
                                                 </tr>
                                             }
                                         }) : "No gifts match this filter."

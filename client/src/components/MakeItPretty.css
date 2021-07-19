@@ -2,9 +2,10 @@
 .container {
 padding-right: 0rem;
 padding-left: 0rem;
-margin-right: 3rem;
-margin-left: 3rem;
+margin-right: 1rem;
+margin-left: 1rem;
 }
+
 .pledgeDriveHeader{
     display: flex;
     flex-wrap: wrap;
@@ -13,6 +14,7 @@ margin-left: 3rem;
     align-items: baseline;
     margin-top: 3rem;
     margin-bottom: 1.5rem;
+    
 }
 
 .header1 {
@@ -21,7 +23,8 @@ margin-left: 3rem;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
-    margin-top: 3rem;
+    margin-top: 1.5rem;
+    
 }
 
 .header2 {
@@ -30,30 +33,46 @@ margin-left: 3rem;
     flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
+
+}
+
+.header3 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+
+}
+
+.header3--a {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+.header3--a__legend {
+    margin-left: 2rem;
 }
 
 .content {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
+
 .totals {
     text-align: right;
 }
 
-.table {
+.giftTable {
     width: 75%;
 }
 
-.charts {
-    width: 25%;
-}
-
-#filterPledgeDriveTable {
-    width: 30%;
-}
-.detailsButton {
-    text-align: center;
-    font-size: 1.5rem;
+.table {
+    margin-top: 1rem;
 }
 
 .table td, .table th {
@@ -62,13 +81,23 @@ margin-left: 3rem;
     border-top: 1px solid #dee2e6;
 }
 
-.noOrders {
+.frequencyIcon {
     text-align: center;
-    margin: 5rem 0 5rem 0;
 }
 
+.charts {
+    width: 25%;
+    margin-top: 1.5rem;
+}
+
+ 
+/* .noOrders {
+    text-align: center;
+    margin: 5rem 0 5rem 0;
+} */
+
 /* Order Details View */
-.detailsPage {
+/* .detailsPage {
     display: flex;
     align-items: top;
 }
@@ -88,5 +117,6 @@ margin-left: 3rem;
     align-items: flex-end;
     margin-top: 3rem;
     margin-bottom: 1.5rem;
-}
+} 
 
+ */

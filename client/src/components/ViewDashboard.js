@@ -59,7 +59,7 @@ export const ViewDashboard = () => {
                 <div className="content">
                     {currentPledgeDrive ?
                         <>
-                            <div className="table">
+                            <div className="giftTable">
                                 {currentPledgeDrive ?
                                     <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive}
                                         key={gifts} gifts={gifts} /> : null
@@ -80,6 +80,7 @@ export const ViewDashboard = () => {
                                             <NumOfDonorsAndNumOfGifts key={currentPledgeDrive.id + 1} currentPledgeDrive={currentPledgeDrive} /> : null
                                     }
 
+                                    <h4>Of Previous Donors</h4>
                                     {
                                         currentPledgeDrive ?
                                             <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null

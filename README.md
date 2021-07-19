@@ -11,7 +11,7 @@ Nashville’s local NPR station - WPLN - wants a better way to track and visuali
 #### Metrics To Track
 - The number of donors grouped by the number of gifts to date (ie. 36 donors have given 4 gifts each to date) 
 - New sustaining memberships from previous donors (ie. 5 previous donors pledged a new sustaining membership rather than a one time gift)
-- Number of gift increases in a one time gift over the donors previous gift amount (ie. 10 donors increased their one time gift amount over their previous one time gift amount)
+- Number of gift increases in a one time gift over the donor's previous gift amount (ie. 10 donors increased their one time gift amount over their previous one time gift amount)
 
 The WPLN staff has asked you to create a desktop dashboard so they can easily see these metrics specific to each drive. 
 

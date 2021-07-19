@@ -16,7 +16,7 @@ Nashville’s local NPR station - WPLN - wants a better way to track and visuali
 The WPLN staff has asked you to create a desktop dashboard so they can easily see these metrics specific to each drive. 
 
 ## Project Goal
-Build a small dashboard that tracks the requested metrics. 
+Build a dashboard that tracks the requested metrics. 
 
 ### MVP Requirements
 - User can select a specific pledge drive 

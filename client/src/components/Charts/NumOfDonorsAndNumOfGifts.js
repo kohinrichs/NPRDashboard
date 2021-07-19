@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { GiftContext } from '../../providers/GiftProvider';
 
 export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
@@ -34,8 +34,20 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
         }
     }
 
+    let updatedLabelsForChart = [];
+
+    if (labelsForChart) {
+        for (let i = 0; i < labelsForChart.length; i++) {
+            if (labelsForChart[i] == 1) {
+                updatedLabelsForChart.push(labelsForChart[i] + " Gift")
+            } else {
+                updatedLabelsForChart.push(labelsForChart[i] + " Gifts")
+            }
+        }
+    }
+
     let data = {
-        labels: labelsForChart,
+        labels: updatedLabelsForChart,
         datasets: [
             {
                 label: 'Number Of Gifts Given By Donors Over Time',
@@ -64,17 +76,16 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
     return dataForChart.length > 0 ? (
         <>
             <div className='header'>
-                <h1 className='title'>Pie Chart</h1>
+                <h6 className='title'>Number Of Gifts Given By Donors To Date</h6>
                 <div className='links'>
                     <a
                         className='btn btn-gh'
-                        href='https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/Pie.js'
+                        href='https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/Doughnut.js'
                     >
-                        Github Source
                     </a>
                 </div>
             </div>
-            <Pie data={data} />
+            <Doughnut data={data} />
         </>
     ) : null
 }

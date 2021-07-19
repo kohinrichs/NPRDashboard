@@ -25,17 +25,17 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
     return numOfGifts && numOfGifts.length > 0 ? (
         <>
             <div className='header'>
-                <h1 className='title'>Pie Chart</h1>
+                <h4 className='title'></h4>
                 <div className='links'>
                     {
                         numOfGifts.map(g => {
                             counter++
-                            return <div key={g.id}>a</div>
+                            return <i key={g.id} class="far fa-smile"></i>
                         })
                     }
                 </div>
                 <div>
-                    {counter} new sustaining memberships from previous donors
+                    +{counter} New Sustaining Memberships From Previous Donors
                 </div>
             </div>
         </>

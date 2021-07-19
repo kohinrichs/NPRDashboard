@@ -22,6 +22,11 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
 
     let counter = 0;
 
+    // <i class="far fa-edit editButton"
+    //     onClick={() => {
+    //         history.push(`/order/edit/${order.id}/${currentHoliday.id}`)
+    //     }}></i>
+
     return numOfGifts && numOfGifts.length > 0 ? (
         <>
             <div className='header'>
@@ -30,7 +35,7 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
                     {
                         numOfGifts.map(g => {
                             counter++
-                            return <div key={g.id}>a</div>
+                            return <i key={g.id} class="far fa-smile"></i>
                         })
                     }
                 </div>

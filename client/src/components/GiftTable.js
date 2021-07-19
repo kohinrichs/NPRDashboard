@@ -96,6 +96,9 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                 </Input>
                             </FormGroup>
 
+                            <h5>One Time Gift : <i class="fas fa-circle"></i></h5>
+                            <h5>Sustaining Membership: <i class="fas fa-undo-alt"></i></h5>
+
                             <Table hover bordered>
                                 <thead>
                                     <tr>
@@ -110,13 +113,32 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                 <tbody>
                                     {
                                         visibleGifts.length > 0 ? visibleGifts.map(g => {
-                                            return <tr key={g.id}>
-                                                <td>{g.donorProfile.lastName}</td>
-                                                <td>{g.donorProfile.firstName}</td>
-                                                <td>${g.amount}</td>
-                                                <td>{dateFormatter(g.giftDate)}</td>
-                                                <td>{g.frequency.name}</td>
-                                            </tr>
+                                            if (g.frequency.name === "Sustaining Membership") {
+                                                return <tr key={g.id}>
+                                                    <td>{g.donorProfile.lastName}</td>
+                                                    <td>{g.donorProfile.firstName}</td>
+                                                    <td>${g.amount}</td>
+                                                    <td>{dateFormatter(g.giftDate)}</td>
+                                                    <td><i className="fas fa-undo-alt"></i></td>
+                                                </tr>
+
+                                            } else if (g.frequency.name === "One Time") {
+                                                return <tr key={g.id} >
+                                                    <td>{g.donorProfile.lastName}</td>
+                                                    <td>{g.donorProfile.firstName}</td>
+                                                    <td>${g.amount}</td>
+                                                    <td>{dateFormatter(g.giftDate)}</td>
+                                                    <td><i className="fas fa-circle"></i></td>
+                                                </tr>
+                                            } else {
+                                                <tr key={g.id} >
+                                                    <td>{g.donorProfile.lastName}</td>
+                                                    <td>{g.donorProfile.firstName}</td>
+                                                    <td>${g.amount}</td>
+                                                    <td>{dateFormatter(g.giftDate)}</td>
+                                                    <td>{g.frequency.name}</td>
+                                                </tr>
+                                            }
                                         }) : "No gifts match this filter."
                                     }
                                 </tbody>

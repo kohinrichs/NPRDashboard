@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Pie } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 import { GiftContext } from '../../providers/GiftProvider';
 
 export const RecurringVsOneTime = ({ currentPledgeDrive }) => {
@@ -26,6 +26,10 @@ export const RecurringVsOneTime = ({ currentPledgeDrive }) => {
             dataForChart.push(giftsByFrequency[key]);
         }
     }
+
+    // Making Legends icons
+    // https://stackoverflow.com/questions/49402490/how-to-use-icon-as-legend-in-chart-js
+    // let iconLabelsForChart = [<i className="fas fa-circle"></i>, <i className="fas fa-undo-alt"></i>];
 
     let data = {
         labels: labelsForChart,
@@ -57,17 +61,17 @@ export const RecurringVsOneTime = ({ currentPledgeDrive }) => {
     return dataForChart.length > 0 ? (
         <>
             <div className='header'>
-                <h1 className='title'>Pie Chart</h1>
+                <h6 className='title'>One Time vs Sustaining Memberships</h6>
                 <div className='links'>
                     <a
                         className='btn btn-gh'
-                        href='https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/Pie.js'
+                        href='https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/Doughnut.js'
                     >
-                        Github Source
+                        {/* One Time vs Sustaining Memberships */}
                     </a>
                 </div>
             </div>
-            <Pie data={data} />
+            <Doughnut data={data} />
         </>
     ) : null
 }

@@ -1,7 +1,7 @@
 # NPRDashboard
 
 ---
-Of Note: This project was developed for as a technical project during the recruiting process and was not solicited by WPLN.
+Of Note: This project was developed as a technical project during the recruiting process and was not solicited by WPLN.
 
 **_The Pledge Drive Dashboard_** is an app developed to help track pledge drive gifts and provide a couple quick visual representations of pledge drive specific data. 
 

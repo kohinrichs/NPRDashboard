@@ -46,14 +46,37 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
 
     return currentPledgeDrive ? (
         <>
-            <Container className="col-sm-6 col-lg-10 justify-content-center">
+            <Container className="justify-content-center">
                 {
                     gifts.length > 0 ?
                         <Container>
-                            <h3>{currentPledgeDrive.name}</h3>
-                            <h4>Dates: {dateFormatter(currentPledgeDrive.startDate)} to {dateFormatter(currentPledgeDrive.endDate)}</h4>
-                            <h4>Goal: ${currentPledgeDrive.goal}</h4>
+                            <div className="header1">
+                                <h3>{currentPledgeDrive.name}</h3>
+                                <h4>{dateFormatter(currentPledgeDrive.startDate)} to {dateFormatter(currentPledgeDrive.endDate)}</h4>
+                            </div>
+                            <div className="header2">
+                                <h4>Goal: ${currentPledgeDrive.goal}</h4>
+                                <div>
+                                    <h6 className="totals">Gift Total: $
+                                        {
+                                            gifts.map((g) => {
+                                                let giftTotal = (g.amount)
+                                                return giftTotal
+                                            }).reduce((a, b) => a + b, 0)
+                                        }
+                                    </h6>
+                                    <h6 className="totals">Percentage of Goal:
 
+                                        {" " +
+                                            (gifts.map((g) => {
+                                                let giftTotal = (g.amount)
+                                                return giftTotal
+                                            }).reduce((a, b) => a + b, 0) / currentPledgeDrive.goal * 100).toFixed(2)
+                                        }
+                                        %
+                                    </h6>
+                                </div>
+                            </div>
                             <FormGroup>
                                 <Input
                                     type="select"
@@ -98,24 +121,6 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                     }
                                 </tbody>
                             </Table>
-                            <h6 className="orderSubtotal">Gift Total: $
-                                {
-                                    gifts.map((g) => {
-                                        let giftTotal = (g.amount)
-                                        return giftTotal
-                                    }).reduce((a, b) => a + b, 0)
-                                }
-                            </h6>
-                            <h6 className="orderSubtotal">Percentage of Goal:
-
-                                {" " +
-                                    (gifts.map((g) => {
-                                        let giftTotal = (g.amount)
-                                        return giftTotal
-                                    }).reduce((a, b) => a + b, 0) / currentPledgeDrive.goal * 100).toFixed(2)
-                                }
-                                %
-                            </h6>
                         </Container> : <h4 className="noOrders">There are no gifts for this pledge drive.</h4>
                 }
             </Container >

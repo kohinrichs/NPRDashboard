@@ -1,0 +1,92 @@
+/* View All Orders, View All Orders With Params*/
+.container {
+padding-right: 0rem;
+padding-left: 0rem;
+margin-right: 3rem;
+margin-left: 3rem;
+}
+.pledgeDriveHeader{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.header1 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 3rem;
+}
+
+.header2 {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+}
+.totals {
+    text-align: right;
+}
+
+.table {
+    width: 75%;
+}
+
+.charts {
+    width: 25%;
+}
+
+#filterPledgeDriveTable {
+    width: 30%;
+}
+.detailsButton {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: center;
+    border-top: 1px solid #dee2e6;
+}
+
+.noOrders {
+    text-align: center;
+    margin: 5rem 0 5rem 0;
+}
+
+/* Order Details View */
+.detailsPage {
+    display: flex;
+    align-items: top;
+}
+
+.detailsContainer {
+    padding-top: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+}
+
+.orderHeader{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+}
+

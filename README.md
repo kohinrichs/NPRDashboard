@@ -7,7 +7,7 @@
 ### User Story
 Nashville’s local NPR station - WPLN - wants a better way to track and visualize data from their pledge drives. The team has an overall monetary goal, but they’re also trying to hone in on a few metrics that they think could be beneficial to track for future pledge drives and to use when following up with donors. 
 
-## New metrics:
+#### Metrics To Track
 - Number of donors by number of lifetime gifts to date 
 - New recurring gifts from previous donors
 - Number of gift increases in a one time gift over the donors previous gift amount

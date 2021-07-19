@@ -90,6 +90,15 @@ margin-left: 1rem;
     margin-top: 1.5rem;
 }
 
+.sustainingMembership {
+    border: 0.15rem black solid;
+    padding: 0.15rem;
+}
+
+.fa {
+    margin: 0.25;
+}
+
  
 /* .noOrders {
     text-align: center;

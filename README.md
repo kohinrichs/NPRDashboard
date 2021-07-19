@@ -9,9 +9,9 @@ Of Note: This project was developed as a technical project during the recruiting
 Nashville’s local NPR station - WPLN - wants a better way to track and visualize data from their pledge drives. The team has an overall monetary goal, but they’re also trying to hone in on a few metrics that they think could be beneficial to track for future pledge drives and to use when following up with donors. 
 
 #### Metrics To Track
-- Number of donors by number of lifetime gifts to date 
-- New recurring gifts from previous donors
-- Number of gift increases in a one time gift over the donors previous gift amount
+- The number of donors grouped by the number of gifts to date (ie. 36 donors have given 4 gifts each to date) 
+- New sustaining memberships from previous donors (ie. 5 previous donors pledged a new sustaining membership rather than a one time gift)
+- Number of gift increases in a one time gift over the donors previous gift amount (ie. 10 donors increased their one time gift amount over their previous one time gift amount)
 
 The WPLN staff has asked you to create a desktop dashboard so they can easily see these metrics specific to each drive. 
 

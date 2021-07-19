@@ -30,12 +30,12 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
 
     // would it make more sense to hit the API again?
     const filterPledgeDriveTable = (e) => {
-        if (parseInt(e.target.value) == 0) {
+        if (parseInt(e.target.value) === 0) {
             setVisibleGifts(gifts)
-        } else if (parseInt(e.target.value) == 1) {
+        } else if (parseInt(e.target.value) === 1) {
             const oneTime = gifts.filter(g => g.frequencyId === 1)
             setVisibleGifts(oneTime)
-        } else if (parseInt(e.target.value) == 2) {
+        } else if (parseInt(e.target.value) === 2) {
             const sustaining = gifts.filter(g => g.frequencyId === 2)
             setVisibleGifts(sustaining)
         } else {

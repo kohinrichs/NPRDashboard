@@ -54,7 +54,7 @@ export const RecurringVsOneTime = ({ currentPledgeDrive }) => {
         ],
     }
 
-    return (
+    return dataForChart.length > 0 ? (
         <>
             <div className='header'>
                 <h1 className='title'>Pie Chart</h1>
@@ -69,5 +69,5 @@ export const RecurringVsOneTime = ({ currentPledgeDrive }) => {
             </div>
             <Pie data={data} />
         </>
-    );
+    ) : null
 }

@@ -24,6 +24,7 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
     let labelsForChart = [];
     let dataForChart = [];
 
+    // https://stackoverflow.com/questions/37673454/javascript-iterate-key-value-from-json
     if (numOfGifts) {
         const keys = Object.keys(numOfGifts);
         for (let i = 0; i < keys.length; i++) {
@@ -60,7 +61,7 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
         ],
     }
 
-    return (
+    return dataForChart.length > 0 ? (
         <>
             <div className='header'>
                 <h1 className='title'>Pie Chart</h1>
@@ -75,5 +76,5 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
             </div>
             <Pie data={data} />
         </>
-    );
+    ) : null
 }

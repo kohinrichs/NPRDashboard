@@ -126,7 +126,7 @@ namespace NPRDashboard.Repositories
         }
 
         // #4  New recurring gifts from previous donors
-        public List<Gift> NewRecurringGifts(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate)
+        public List<Gift> GetNewRecurringGiftsFromPreviousDonors(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate)
         {
             using (var conn = Connection)
             {
@@ -174,7 +174,8 @@ namespace NPRDashboard.Repositories
         }
 
 
-        // List Of One Time Gift By Same Donor
+        //#5 List Of One Time Gift By Same Donor That Include This Pledge Drive (This query could use some help.)
+        // https://dbadiaries.com/t-sql-how-to-select-top-n-rows-for-each-group-using-row_number
         public List<Gift> GetListOfOneTimeGiftsBySameDonor(DateTime pledgeDriveEndDate)
         {
             using (var conn = Connection)
@@ -183,18 +184,24 @@ namespace NPRDashboard.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                      SELECT SUBQUERY.DonorProfileId, SUBQUERY.FrequencyId, SUBQUERY.Amount, SUBQUERY.Id, SUBQUERY.GiftDate FROM
-	                        (SELECT DonorProfileId, Id, FrequencyId, GiftDate, Amount 
-		                        FROM Gift
-		                        WHERE FrequencyId = 1 AND DonorProfileId IN (
-		                        SELECT DonorProfileId
-				                        FROM Gift
-				                        WHERE FrequencyId = 1 AND GiftDate <= @EndDate
-				                        GROUP BY DonorProfileId
-				                        HAVING Count(*) >= 2
-				                        )
-	                        )  AS SUBQUERY
-	                        ORDER BY DonorProfileId, GiftDate ASC";
+                      WITH MyRowSet
+                            AS 
+                            (
+                            SELECT SUBQUERY.DonorProfileId, SUBQUERY.FrequencyId, SUBQUERY.Amount, SUBQUERY.Id, SUBQUERY.GiftDate, ROW_NUMBER () OVER (PARTITION BY SUBQUERY.DonorProfileId ORDER BY DonorProfileId, GiftDate DESC) AS RowNum FROM
+	                            (SELECT DonorProfileId, Id, FrequencyId, GiftDate, Amount
+		                            FROM Gift
+		                            WHERE FrequencyId = 1 AND DonorProfileId IN (
+		                            SELECT DonorProfileId
+				                            FROM Gift
+				                            WHERE FrequencyId = 1 AND GiftDate <= @EndDate
+				                            GROUP BY DonorProfileId
+				                            HAVING Count(*) >= 2
+				                            )
+	                            ) AS SUBQUERY 
+                            )
+
+                            SELECT * FROM MyRowSet WHERE RowNum <= 2
+                            ORDER BY DonorProfileId, GiftDate ASC";
 
                     DbUtils.AddParameter(cmd, "@EndDate", pledgeDriveEndDate);
 

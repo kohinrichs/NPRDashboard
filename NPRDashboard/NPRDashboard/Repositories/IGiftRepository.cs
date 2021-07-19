@@ -11,7 +11,7 @@ namespace NPRDashboard.Repositories
         List<Gift> GetGiftsByPledgeDriveId(int pledgeDriveId);
         Dictionary<string, int> GetNumOfGiftsByFrequency(int pledgeDriveId);
         Dictionary<int, int> GetNumOfDonorsAndNumOfGift(DateTime pledgeDriveEndDate);
-        List<Gift> NewRecurringGifts(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate);
+        List<Gift> GetNewRecurringGiftsFromPreviousDonors(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate);
         List<Gift> GetListOfOneTimeGiftsBySameDonor(DateTime pledgeDriveEndDate);
 
     }

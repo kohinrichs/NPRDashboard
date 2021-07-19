@@ -4,7 +4,7 @@
 
 **_The Pledge Drive Dashboard_** is an app developed to help track pledge drive gifts and provide a couple quick visual representations of the data. 
 
-### User Story
+## User Story
 Nashville’s local NPR station - WPLN - wants a better way to track and visualize data from their pledge drives. The team has an overall monetary goal, but they’re also trying to hone in on a few metrics that they think could be beneficial to track for future pledge drives and to use when following up with donors. 
 
 #### Metrics To Track
@@ -17,7 +17,7 @@ The WPLN staff has asked you to create a desktop dashboard so they can easily se
 ## Goal
 Build a small dashboard to tracks the requested metrics metrics 
 
-## MVP Requirements
+### MVP Requirements
 - User can select a specific pledge drive 
 - User can see gifts organized and displayed by chosen pledge drive
 - User can sort gifts by gift Frequency
@@ -26,27 +26,27 @@ Build a small dashboard to tracks the requested metrics metrics
 - User can see number of new sustaining memberships from previous donors
 - User can see number of previous donors who have increased their one time gift amount
 
-## Learning Goals
+### Learning Goals
 - Quickly research, design, and create a new project
 - Creating charts
 - Using SQL subqueries 
 
-## Technology used
+### Technology used
 
-### Front-end
+#### Front-end
 
 -   React
 -   Reactstrap
 -   Custom CSS
 
-### Back-end
+#### Back-end
 
 -   C#
 -   .NET 5
 -   ASP.NET Core
 -   SQL Server
 
-### Design and Development
+#### Design and Development
 
 -   DbDiagram.io
 ---

@@ -53,12 +53,11 @@ Build a small dashboard to tracks the requested metrics metrics
 
 ## Planning Documentation
 
+### Concept Sketch 
+<img src="./client/src/components/Images/NPRDashboardConceptSketch.png" alt="NPR Dashboard Concept Sketch" width="100%"></img>
+
 ### Entity Relationship Diagram
-
-
-### Wireframe
-
-
+<img src="./client/src/components/Images/NPRDashboardERD.png" alt="NPR Dashboard ERD" width="100%"></img>
 ---
 
 ## Try It Out

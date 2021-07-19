@@ -22,15 +22,10 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
 
     let counter = 0;
 
-    // <i class="far fa-edit editButton"
-    //     onClick={() => {
-    //         history.push(`/order/edit/${order.id}/${currentHoliday.id}`)
-    //     }}></i>
-
     return numOfGifts && numOfGifts.length > 0 ? (
         <>
             <div className='header'>
-                <h1 className='title'>Pie Chart</h1>
+                <h4 className='title'></h4>
                 <div className='links'>
                     {
                         numOfGifts.map(g => {
@@ -40,7 +35,7 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
                     }
                 </div>
                 <div>
-                    {counter} new sustaining memberships from previous donors
+                    +{counter} New Sustaining Memberships From Previous Donors
                 </div>
             </div>
         </>

@@ -77,12 +77,12 @@ export const ViewDashboard = () => {
 
                         {
                             currentPledgeDrive ?
-                                <NewRecurringGiftsFromPreviousDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null
+                                <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null
                         }
 
                         {
                             currentPledgeDrive ?
-                                <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 3} currentPledgeDrive={currentPledgeDrive} /> : null
+                                <NewRecurringGiftsFromPreviousDonor key={currentPledgeDrive.id + 3} currentPledgeDrive={currentPledgeDrive} /> : null
                         }
                     </div>
                 </div>

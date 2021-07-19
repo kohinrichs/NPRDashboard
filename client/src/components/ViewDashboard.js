@@ -57,34 +57,42 @@ export const ViewDashboard = () => {
                 </div>
 
                 <div className="content">
-                    <div className="table">
-                        {currentPledgeDrive ?
-                            <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive}
-                                key={gifts} gifts={gifts} /> : null
-                        }
-                    </div>
+                    {currentPledgeDrive ?
+                        <>
+                            <div className="table">
+                                {currentPledgeDrive ?
+                                    <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive}
+                                        key={gifts} gifts={gifts} /> : null
+                                }
+                            </div>
 
-                    <div className="charts">
-                        {
-                            currentPledgeDrive ?
-                                <RecurringVsOneTime key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive} /> : null
-                        }
+                            <div className="charts">
+                                <h3>By The Numbers</h3>
 
-                        {
-                            currentPledgeDrive ?
-                                <NumOfDonorsAndNumOfGifts key={currentPledgeDrive.id + 1} currentPledgeDrive={currentPledgeDrive} /> : null
-                        }
+                                <div>
+                                    {
+                                        currentPledgeDrive ?
+                                            <RecurringVsOneTime key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive} /> : null
+                                    }
 
-                        {
-                            currentPledgeDrive ?
-                                <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null
-                        }
+                                    {
+                                        currentPledgeDrive ?
+                                            <NumOfDonorsAndNumOfGifts key={currentPledgeDrive.id + 1} currentPledgeDrive={currentPledgeDrive} /> : null
+                                    }
 
-                        {
-                            currentPledgeDrive ?
-                                <NewRecurringGiftsFromPreviousDonor key={currentPledgeDrive.id + 3} currentPledgeDrive={currentPledgeDrive} /> : null
-                        }
-                    </div>
+                                    {
+                                        currentPledgeDrive ?
+                                            <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null
+                                    }
+
+                                    {
+                                        currentPledgeDrive ?
+                                            <NewRecurringGiftsFromPreviousDonor key={currentPledgeDrive.id + 3} currentPledgeDrive={currentPledgeDrive} /> : null
+                                    }
+                                </div>
+                            </div>
+                        </> : null
+                    }
                 </div>
             </Container >
         </>

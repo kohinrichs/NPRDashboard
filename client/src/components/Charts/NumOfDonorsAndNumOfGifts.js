@@ -76,7 +76,7 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
     return dataForChart.length > 0 ? (
         <>
             <div className='header'>
-                <h6 className='title'>Number of Gifts Over Giving Lifetime of Pledge Drive Donors</h6>
+                <h6 className='title'>Number Of Gifts Given By Donors To Date</h6>
                 <div className='links'>
                     <a
                         className='btn btn-gh'

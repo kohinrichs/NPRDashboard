@@ -44,7 +44,7 @@ export const OneTimeGiftsBySameDonor = ({ currentPledgeDrive }) => {
     return gifts && gifts.length > 0 ? (
         <>
             <div className='header'>
-                <h4 className='title'>By The Numbers for Previous Donors</h4>
+                <h4 className='title'>For Previous Donors</h4>
                 <div className='links'>
                     {
                         counter = 1 ? <div>+{counter} Donor has increased their one time gift over their previous gift! Average Increase: ${arrayOfDifferences[0]} </div>

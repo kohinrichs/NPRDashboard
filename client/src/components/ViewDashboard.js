@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Container, Col, FormGroup, Label, Input, Table } from 'reactstrap';
+import { Container, Col, FormGroup, Input } from 'reactstrap';
 import { GiftContext } from "../providers/GiftProvider";
 import { PledgeDriveContext } from "../providers/PledgeDriveProvider";
 import { GiftTable } from './GiftTable'

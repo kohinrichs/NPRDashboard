@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Container, Col, FormGroup, Label, Input, Table } from 'reactstrap';
+import { Container, FormGroup, Input, Table } from 'reactstrap';
 import { FrequencyContext } from '../providers/FrequencyProvider';
 
 
@@ -83,6 +83,7 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                 </div>
                             </div>
                             <div className="header3">
+                                <div>Filter By Gift Frequency</div>
                                 <FormGroup>
                                     <Input
                                         type="select"
@@ -121,7 +122,7 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                                 visibleGifts.map(g => {
                                                     return <tr key={g.id}>
                                                         {
-                                                            g.donorProfile.numberOfGifts == 1 ? <td><b>#1</b> - {g.donorProfile.lastName}</td> : <td>{g.donorProfile.lastName}</td>
+                                                            g.donorProfile.numberOfGifts === 1 ? <td><b>#1</b> - {g.donorProfile.lastName}</td> : <td>{g.donorProfile.lastName}</td>
                                                         }
                                                         <td>{g.donorProfile.firstName}</td>
                                                         <td>${g.amount}</td>

@@ -38,7 +38,7 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
 
     if (labelsForChart) {
         for (let i = 0; i < labelsForChart.length; i++) {
-            if (labelsForChart[i] == 1) {
+            if (labelsForChart[i] === 1) {
                 updatedLabelsForChart.push(labelsForChart[i] + " Gift")
             } else {
                 updatedLabelsForChart.push(labelsForChart[i] + " Gifts")

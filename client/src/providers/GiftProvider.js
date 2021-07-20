@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from 'react-router';
 
 export const GiftContext = React.createContext();
 
 export const GiftProvider = (props) => {
     const [gift, setGift] = useState([]);
-
-    const history = useHistory();
 
     const getAllGiftsByPledgeDriveId = (pledgeDriveId) => {
         return fetch(`/api/gift/getgiftsbypledgedriveid/${pledgeDriveId}`, {

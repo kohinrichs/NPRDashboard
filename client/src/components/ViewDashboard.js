@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Container, Col, FormGroup, Label, Input, Table } from 'reactstrap';
+import { Container, Col, FormGroup, Input } from 'reactstrap';
 import { GiftContext } from "../providers/GiftProvider";
 import { PledgeDriveContext } from "../providers/PledgeDriveProvider";
 import { GiftTable } from './GiftTable'
@@ -8,6 +8,7 @@ import { NumOfDonorsAndNumOfGifts } from './Charts/NumOfDonorsAndNumOfGifts';
 import { NewRecurringGiftsFromPreviousDonor } from './Charts/NewRecurringGiftsFromPreviousDonors';
 import { OneTimeGiftsBySameDonor } from './Charts/OneTimeGiftsBySameDonor';
 import "./MakeItPretty.css"
+import { GiftsPerDay } from './Charts/GiftsPerDay';
 
 export const ViewDashboard = () => {
 
@@ -24,7 +25,7 @@ export const ViewDashboard = () => {
 
     return (
         <>
-            <Container>
+            <Container className="mainContainer">
                 {/* className="col-sm-6 col-lg-10 justify-content-center" */}
                 <div className="pledgeDriveHeader">
                     <h2>WPLN | Pledge Drive Dashboard</h2>
@@ -54,21 +55,29 @@ export const ViewDashboard = () => {
                             </Input>
                         </FormGroup>
                     </Col>
+
+                    {/* <h1 className="hello">Hello. Please select a pledge drive.</h1> <i className="fas fa-level-up-alt"></i> */}
                 </div>
 
                 <div className="content">
                     {currentPledgeDrive ?
                         <>
-                            <div className="table">
-                                {currentPledgeDrive ?
-                                    <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive}
-                                        key={gifts} gifts={gifts} /> : null
-                                }
+                            <div className="giftTable">
+                                <div>
+                                    {currentPledgeDrive ?
+                                        <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive}
+                                            key={gifts} gifts={gifts} /> : null
+                                    }
+
+                                </div>
+
+                                {/* {
+                                    <GiftsPerDay key={currentPledgeDrive.id + 4} currentPledgeDrive={currentPledgeDrive}
+                                        key={gifts + 1} gifts={gifts} />
+                                } */}
+
                             </div>
-
                             <div className="charts">
-                                <h3>By The Numbers</h3>
-
                                 <div>
                                     {
                                         currentPledgeDrive ?
@@ -79,7 +88,6 @@ export const ViewDashboard = () => {
                                         currentPledgeDrive ?
                                             <NumOfDonorsAndNumOfGifts key={currentPledgeDrive.id + 1} currentPledgeDrive={currentPledgeDrive} /> : null
                                     }
-
                                     {
                                         currentPledgeDrive ?
                                             <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null
@@ -93,6 +101,9 @@ export const ViewDashboard = () => {
                             </div>
                         </> : null
                     }
+                </div>
+                <div className="footer">
+                    <h6>Keep up the good work! :)</h6>
                 </div>
             </Container >
         </>

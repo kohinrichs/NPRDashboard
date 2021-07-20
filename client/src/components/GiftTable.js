@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Container, Col, FormGroup, Label, Input, Table } from 'reactstrap';
+import { Container, FormGroup, Input, Table } from 'reactstrap';
 import { FrequencyContext } from '../providers/FrequencyProvider';
 
 
@@ -43,6 +43,8 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
         }
     };
 
+    // Total number of gifts for the Pledge Drive
+    let totalNumberOfGifts = gifts.length;
 
     return currentPledgeDrive ? (
         <>
@@ -55,9 +57,12 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                 <h4>{dateFormatter(currentPledgeDrive.startDate)} to {dateFormatter(currentPledgeDrive.endDate)}</h4>
                             </div>
                             <div className="header2">
-                                <h4>Goal: ${currentPledgeDrive.goal}</h4>
                                 <div>
-                                    <h6 className="totals">Gift Total: $
+                                    <h6>Goal: ${currentPledgeDrive.goal}</h6>
+                                    <h6>Number Of Gifts: {totalNumberOfGifts}</h6>
+                                </div>
+                                <div>
+                                    <h6 className="totals">Pledge Drive Total: $
                                         {
                                             gifts.map((g) => {
                                                 let giftTotal = (g.amount)
@@ -77,73 +82,68 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                     </h6>
                                 </div>
                             </div>
-                            <FormGroup>
-                                <Input
-                                    type="select"
-                                    name="filterPledgeDriveTable"
-                                    id="filterPledgeDriveTable"
-                                    value={frequency.name}
-                                    onChange={(e) => filterPledgeDriveTable(e)}
-                                >
-                                    <option value="0">All</option>
-                                    {frequency.map((f) => {
-                                        return (
-                                            <option key={f.id} value={f.id}>
-                                                {f.name}
-                                            </option>
-                                        );
-                                    })}
-                                </Input>
-                            </FormGroup>
+                            <div className="header3">
+                                <div>Filter By Gift Frequency</div>
+                                <FormGroup>
+                                    <Input
+                                        type="select"
+                                        name="filterPledgeDriveTable"
+                                        id="filterPledgeDriveTable"
+                                        value={frequency.name}
+                                        onChange={(e) => filterPledgeDriveTable(e)}
+                                    >
+                                        <option value="0">All</option>
+                                        {frequency.map((f) => {
+                                            return (
+                                                <option key={f.id} value={f.id}>
+                                                    {f.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </Input>
+                                </FormGroup>
+                            </div>
 
-                            <h5>One Time Gift : <i class="fas fa-circle"></i></h5>
-                            <h5>Sustaining Membership: <i class="fas fa-undo-alt"></i></h5>
+                            {
+                                visibleGifts.length > 0 ? <div className="tableBody">
+                                    <Table hover bordered>
+                                        <thead>
+                                            <tr>
+                                                <th>Last Name</th>
+                                                <th>First Name</th>
+                                                <th>Amount</th>
+                                                <th>Gift Date</th>
+                                                <th>Frequency</th>
 
-                            <Table hover bordered>
-                                <thead>
-                                    <tr>
-                                        <th>Last Name</th>
-                                        <th>First Name</th>
-                                        <th>Amount</th>
-                                        <th>Gift Date</th>
-                                        <th>Frequency</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        visibleGifts.length > 0 ? visibleGifts.map(g => {
-                                            if (g.frequency.name === "Sustaining Membership") {
-                                                return <tr key={g.id}>
-                                                    <td>{g.donorProfile.lastName}</td>
-                                                    <td>{g.donorProfile.firstName}</td>
-                                                    <td>${g.amount}</td>
-                                                    <td>{dateFormatter(g.giftDate)}</td>
-                                                    <td><i className="fas fa-undo-alt"></i></td>
-                                                </tr>
-
-                                            } else if (g.frequency.name === "One Time") {
-                                                return <tr key={g.id} >
-                                                    <td>{g.donorProfile.lastName}</td>
-                                                    <td>{g.donorProfile.firstName}</td>
-                                                    <td>${g.amount}</td>
-                                                    <td>{dateFormatter(g.giftDate)}</td>
-                                                    <td><i className="fas fa-circle"></i></td>
-                                                </tr>
-                                            } else {
-                                                <tr key={g.id} >
-                                                    <td>{g.donorProfile.lastName}</td>
-                                                    <td>{g.donorProfile.firstName}</td>
-                                                    <td>${g.amount}</td>
-                                                    <td>{dateFormatter(g.giftDate)}</td>
-                                                    <td>{g.frequency.name}</td>
-                                                </tr>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {
+                                                visibleGifts.map(g => {
+                                                    return <tr key={g.id}>
+                                                        {
+                                                            g.donorProfile.numberOfGifts === 1 ? <td><b>#1</b> - {g.donorProfile.lastName}</td> : <td>{g.donorProfile.lastName}</td>
+                                                        }
+                                                        <td>{g.donorProfile.firstName}</td>
+                                                        <td>${g.amount}</td>
+                                                        <td>{dateFormatter(g.giftDate)}</td>
+                                                        {
+                                                            g.frequency.name === "Sustaining Membership" ? <td className="frequencyIcon"><i className="fas fa-undo-alt"></i></td> : <td className="frequencyIcon"><i className="fas fa-circle"></i></td>
+                                                        }
+                                                    </tr>
+                                                })
                                             }
-                                        }) : "No gifts match this filter."
-                                    }
-                                </tbody>
-                            </Table>
-                        </Container> : <h4 className="noOrders">There are no gifts for this pledge drive.</h4>
+                                        </tbody>
+                                    </Table>
+                                </div>
+                                    : <h4 className="noGifts">No gifts match this filter.</h4>
+                            }
+                            <div className="header3--a">
+                                <h6 className="header3--a__legend"> First Time Donor : <strong>#1</strong></h6>
+                                <h6 className="header3--a__legend">One Time Gift : <i className="fas fa-circle"></i></h6>
+                                <h6 className="header3--a__legend">Sustaining Membership: <i className="fas fa-undo-alt"></i></h6>
+                            </div>
+                        </Container> : <h4 className="noGifts">There are no gifts for this pledge drive.</h4>
                 }
             </Container >
         </>

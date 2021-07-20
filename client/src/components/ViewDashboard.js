@@ -8,6 +8,7 @@ import { NumOfDonorsAndNumOfGifts } from './Charts/NumOfDonorsAndNumOfGifts';
 import { NewRecurringGiftsFromPreviousDonor } from './Charts/NewRecurringGiftsFromPreviousDonors';
 import { OneTimeGiftsBySameDonor } from './Charts/OneTimeGiftsBySameDonor';
 import "./MakeItPretty.css"
+import { GiftsPerDay } from './Charts/GiftsPerDay';
 
 export const ViewDashboard = () => {
 
@@ -62,12 +63,20 @@ export const ViewDashboard = () => {
                     {currentPledgeDrive ?
                         <>
                             <div className="giftTable">
-                                {currentPledgeDrive ?
-                                    <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive}
-                                        key={gifts} gifts={gifts} /> : null
-                                }
-                            </div>
+                                <div>
+                                    {currentPledgeDrive ?
+                                        <GiftTable key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive}
+                                            key={gifts} gifts={gifts} /> : null
+                                    }
 
+                                </div>
+
+                                {
+                                    <GiftsPerDay key={currentPledgeDrive.id + 4} currentPledgeDrive={currentPledgeDrive}
+                                        key={gifts + 1} gifts={gifts} />
+                                }
+
+                            </div>
                             <div className="charts">
                                 <h3 className="charts--title1">By The Numbers</h3>
 
@@ -98,7 +107,7 @@ export const ViewDashboard = () => {
                     }
                 </div>
                 <div className="footer">
-                    <h7>Keep up the good work! :)</h7>
+                    <h6>Keep up the good work! :)</h6>
                 </div>
             </Container >
         </>

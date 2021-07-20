@@ -25,15 +25,22 @@ export const OneTimeGiftsBySameDonor = ({ currentPledgeDrive }) => {
 
     if (gifts) {
         let compareObjects = (obj1, obj2) => {
-
             if (obj2.giftDate >= currentPledgeDrive.startDate && obj2.giftDate <= currentPledgeDrive.endDate) {
                 if (obj2.amount > obj1.amount) {
                     counter++
                     arrayOfDifferences.push(obj2.amount - obj1.amount)
                 }
             }
-            giftAverage = (arrayOfDifferences) => arrayOfDifferences.reduce((a, b) => a + b) / arrayOfDifferences.length;
-            return giftAverage;
+            if (arrayOfDifferences.length === 0) {
+                giftAverage = 0;
+                return giftAverage
+            } else if (arrayOfDifferences.length === 1) {
+                giftAverage = arrayOfDifferences[0]
+                return giftAverage
+            } else {
+                giftAverage = (arrayOfDifferences) => arrayOfDifferences.reduce((a, b) => a + b) / arrayOfDifferences.length;
+                return giftAverage;
+            }
         }
 
         for (let i = 0; i < gifts.length; i += 2) {
@@ -44,13 +51,13 @@ export const OneTimeGiftsBySameDonor = ({ currentPledgeDrive }) => {
     return gifts && gifts.length > 0 ? (
         <>
             <h4 className="charts--title2">Of Previous Donors</h4>
-            <div className='header'>
-                <div className='links'>
-                    {
-                        counter === 1 ? <div><strong>+{counter} donor</strong> has increased their one time gift over their previous gift!<br /> Average Increase: <strong>+${arrayOfDifferences[0]}</strong></div>
-                            : <div><strong>+{counter} donors</strong> have increased their one time gift over their previous gift!<br /> Average Increase: <strong>+${giftAverage}</strong></div>
-                    }
-                </div>
+            <div>
+                {
+                    // // make this an if else
+                    counter === 1 ? <div><strong>+{counter} donor</strong> has increased their one time gift over their previous gift!<br /><strong>+${giftAverage}</strong> average increase</div>
+                        :
+                        <div><strong>+{counter} donors</strong> have increased their one time gift over their previous gift!<br /><strong>+${giftAverage}</strong> average increase: </div>
+                }
             </div>
         </>
     ) : null

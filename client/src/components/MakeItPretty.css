@@ -1,9 +1,10 @@
 /* View All Orders, View All Orders With Params*/
-.container {
+.mainContainer {
 padding-right: 0rem;
 padding-left: 0rem;
 margin-right: 1rem;
 margin-left: 1rem;
+margin-bottom: 1rem;
 }
 
 .pledgeDriveHeader{
@@ -90,14 +91,29 @@ margin-left: 1rem;
     margin-top: 1.5rem;
 }
 
-.sustainingMembership {
-    border: 0.15rem black solid;
-    padding: 0.15rem;
+.charts--title2 {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 0.05rem black solid;
 }
 
-.fa {
-    margin: 0.25;
+.sustainingMembership {
+    border: 0.05rem;
+    padding: 1rem 0.25rem 0.25rem 0.25rem;
+    border-top: 0.05rem black solid;
+    margin-top: 1rem;
 }
+
+.footer {
+    margin-top: 4rem;
+    padding-top: 1rem;
+    text-align: center;
+    border-top: 0.05rem black solid;
+}
+
+/* .fa {
+    margin: 0.25;
+} */
 
  
 /* .noOrders {

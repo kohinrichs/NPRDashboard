@@ -24,7 +24,7 @@ export const ViewDashboard = () => {
 
     return (
         <>
-            <Container>
+            <Container className="mainContainer">
                 {/* className="col-sm-6 col-lg-10 justify-content-center" */}
                 <div className="pledgeDriveHeader">
                     <h2>WPLN | Pledge Drive Dashboard</h2>
@@ -54,6 +54,8 @@ export const ViewDashboard = () => {
                             </Input>
                         </FormGroup>
                     </Col>
+
+                    {/* <h1 className="hello">Hello. Please select a pledge drive.</h1> <i className="fas fa-level-up-alt"></i> */}
                 </div>
 
                 <div className="content">
@@ -67,7 +69,7 @@ export const ViewDashboard = () => {
                             </div>
 
                             <div className="charts">
-                                <h3>By The Numbers</h3>
+                                <h3 className="charts--title1">By The Numbers</h3>
 
                                 <div>
                                     {
@@ -80,7 +82,7 @@ export const ViewDashboard = () => {
                                             <NumOfDonorsAndNumOfGifts key={currentPledgeDrive.id + 1} currentPledgeDrive={currentPledgeDrive} /> : null
                                     }
 
-                                    <h4>Of Previous Donors</h4>
+                                    <h4 className="charts--title2">Of Previous Donors</h4>
                                     {
                                         currentPledgeDrive ?
                                             <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null
@@ -94,6 +96,9 @@ export const ViewDashboard = () => {
                             </div>
                         </> : null
                     }
+                </div>
+                <div className="footer">
+                    <h7>Keep up the good work! :)</h7>
                 </div>
             </Container >
         </>

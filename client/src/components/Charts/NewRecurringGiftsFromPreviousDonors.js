@@ -35,7 +35,9 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
                     }
                 </div>
                 <div>
-                    <strong>+{counter} new sustaining memberships</strong> from previous donors
+                    {
+                        counter === 1 ? <p><strong>+{counter} new sustaining membership</strong> from previous donors</p> : <p><strong>+{counter} new sustaining memberships</strong> from previous donors</p>
+                    }
                 </div>
             </div>
         </>

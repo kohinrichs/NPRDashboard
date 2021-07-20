@@ -103,8 +103,9 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                 </FormGroup>
 
                                 <div className="header3--a">
-                                    <h6 className="header3--a__legend">One Time Gift : <i class="fas fa-circle"></i></h6>
-                                    <h6 className="header3--a__legend">Sustaining Membership: <i class="fas fa-undo-alt"></i></h6>
+                                    <h7 className="header3--a__legend"> First Time Donor : <strong>#1</strong></h7>
+                                    <h7 className="header3--a__legend">One Time Gift : <i class="fas fa-circle"></i></h7>
+                                    <h7 className="header3--a__legend">Sustaining Membership: <i class="fas fa-undo-alt"></i></h7>
                                 </div>
                             </div>
 
@@ -122,32 +123,17 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                 <tbody>
                                     {
                                         visibleGifts.length > 0 ? visibleGifts.map(g => {
-                                            if (g.frequency.name === "Sustaining Membership") {
-                                                return <tr key={g.id}>
-                                                    <td>{g.donorProfile.lastName}</td>
-                                                    <td>{g.donorProfile.firstName}</td>
-                                                    <td>${g.amount}</td>
-                                                    <td>{dateFormatter(g.giftDate)}</td>
-                                                    <td className="frequencyIcon"><i className="fas fa-undo-alt"></i></td>
-                                                </tr>
-
-                                            } else if (g.frequency.name === "One Time") {
-                                                return <tr key={g.id} >
-                                                    <td>{g.donorProfile.lastName}</td>
-                                                    <td>{g.donorProfile.firstName}</td>
-                                                    <td>${g.amount}</td>
-                                                    <td>{dateFormatter(g.giftDate)}</td>
-                                                    <td className="frequencyIcon"><i className="fas fa-circle"></i></td>
-                                                </tr>
-                                            } else {
-                                                <tr key={g.id} >
-                                                    <td>{g.donorProfile.lastName}</td>
-                                                    <td>{g.donorProfile.firstName}</td>
-                                                    <td>${g.amount}</td>
-                                                    <td>{dateFormatter(g.giftDate)}</td>
-                                                    <td className="frequencyIcon">{g.frequency.name}</td>
-                                                </tr>
-                                            }
+                                            return <tr key={g.id}>
+                                                {
+                                                    g.donorProfile.numberOfGifts == 1 ? <td><b>#1</b> - {g.donorProfile.lastName}</td> : <td>{g.donorProfile.lastName}</td>
+                                                }
+                                                <td>{g.donorProfile.firstName}</td>
+                                                <td>${g.amount}</td>
+                                                <td>{dateFormatter(g.giftDate)}</td>
+                                                {
+                                                    g.frequency.name === "Sustaining Membership" ? <td className="frequencyIcon"><i className="fas fa-undo-alt"></i></td> : <td className="frequencyIcon"><i className="fas fa-circle"></i></td>
+                                                }
+                                            </tr>
                                         }) : "No gifts match this filter."
                                     }
                                 </tbody>

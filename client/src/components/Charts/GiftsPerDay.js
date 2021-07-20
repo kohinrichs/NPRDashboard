@@ -19,6 +19,17 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
         return month + '-' + day + '-' + year;
     };
 
+    const dateFormatter02 = (date) => {
+        const allDate = date.split('T')
+        const ymdDate = allDate[0].split('-')
+
+        const year = ymdDate[0];
+        const month = ymdDate[1];
+        const day = ymdDate[2];
+
+        return year + '-' + month + '-' + day;
+    };
+
 
     const currentPledgeDriveStartDate = dateFormatter(currentPledgeDrive.startDate);
     const currentPledgeDriveEndDate = dateFormatter(currentPledgeDrive.endDate);
@@ -29,28 +40,54 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
 
     let arrayOfDates = [];
 
-    if (currentPledgeDriveEndDate) {
-
-        for (let i = 0; i < numOfDays + 1; i++) {
-
-            const dateFormatterPlusOne = (date) => {
-                const ymdDate = date.split('-')
-
-                const year = ymdDate[2];
-                const month = ymdDate[1]
-                const day = parseInt((ymdDate[0]), 10)
-                let dayPlusOne = day + i
-                // if index of one, add string "0" to front
-
-                if (dayPlusOne.toString().length === 1) {
-                    dayPlusOne = "0" + dayPlusOne.toString()
-                }
-
-                arrayOfDates.push(year + '-' + month + '-' + dayPlusOne);
-            };
-
-            dateFormatterPlusOne(currentPledgeDriveStartDate)
+    var getDateArray = (start, end) => {
+        for (var arr = [], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+            arrayOfDates.push(new Date(dt));
         }
+        return arr;
+    };
+
+    if (currentPledgeDrive) {
+
+        arrayOfDates = getDateArray(dateFormatter02(currentPledgeDrive.startDate), dateFormatter02(currentPledgeDrive.endDate))
+        // var getDateArray = (start, end) => {
+        //     for (let arr=[], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+        //         arrayOfDates.push(new Date(dt));
+        //     }
+        //      return arr;
+        // };
+
+        // const getDateArray = function (start, end) {
+        //     debugger
+
+        //     // const arr = new Array();
+        //     const dt = new Date(start);
+
+        //     while (dt <= end) {
+        //         arrayOfDates.push(new Date(dt));
+        //         dt.setDate(dt.getDate() + 1);
+        //     }
+        // }
+        // getDateArray(dateFormatter02(currentPledgeDrive.startDate), dateFormatter02(currentPledgeDrive.endDate))
+        // This doesn't handle different months...
+        // for (let i = 0; i < numOfDays + 1; i++) {
+
+        //     const dateFormatterPlusOne = (date) => {
+        //         const ymdDate = date.split('-')
+        //         debugger
+        //         const year = ymdDate[2];
+        //         const month = ymdDate[0]
+        //         const day = parseInt((ymdDate[1]), 10)
+        //         let dayPlusOne = day + i
+
+        //         if (dayPlusOne.toString().length === 1) {
+        //             dayPlusOne = "0" + dayPlusOne.toString()
+        //         }
+        //         arrayOfDates.push(year + '-' + month + '-' + dayPlusOne);
+        //     };
+
+        //     dateFormatterPlusOne(currentPledgeDriveStartDate)
+        // }
     }
 
     let labelsForChart = [];
@@ -60,10 +97,11 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
     // date as the gift date, those counts get pushed to array to become the data
 
     debugger
-    for (let i = 0; i < arrayOfDates.length; i++) {
-        let giftsByDate = gifts.filter(g => g.giftDate === arrayOfDates[i].giftDate)
-
-        dataForChart.push(giftsByDate.length)
+    if (gifts) {
+        for (let i = 0; i < arrayOfDates.length; i++) {
+            let giftsByDate = gifts.filter(g => (dateFormatter02(g.giftDate)) === arrayOfDates[i])
+            dataForChart.push(giftsByDate.length)
+        }
     }
 
 
@@ -85,7 +123,10 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
             yAxes: [
                 {
                     ticks: {
+                        stepSize: 1,
+                        precision: 0,
                         beginAtZero: true,
+
                     },
                 },
             ],
@@ -96,7 +137,7 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
     return dataForChart.length > 0 ? (
         <>
             <div className='header'>
-                <h6 className='title'>Number Of Gifts Given By Donors To Date</h6>
+                <h6 className='title'>Gifts Per Day</h6>
                 <div className='links'>
                     <a
                         className='btn btn-gh'
@@ -105,7 +146,7 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
                     </a>
                 </div>
             </div>
-            <Line data={data} options={options} />
+            <Line options={options} data={data} />
         </>
     ) : null
 }

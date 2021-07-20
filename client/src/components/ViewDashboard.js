@@ -71,15 +71,13 @@ export const ViewDashboard = () => {
 
                                 </div>
 
-                                {
+                                {/* {
                                     <GiftsPerDay key={currentPledgeDrive.id + 4} currentPledgeDrive={currentPledgeDrive}
                                         key={gifts + 1} gifts={gifts} />
-                                }
+                                } */}
 
                             </div>
                             <div className="charts">
-                                <h3 className="charts--title1">By The Numbers</h3>
-
                                 <div>
                                     {
                                         currentPledgeDrive ?
@@ -90,8 +88,6 @@ export const ViewDashboard = () => {
                                         currentPledgeDrive ?
                                             <NumOfDonorsAndNumOfGifts key={currentPledgeDrive.id + 1} currentPledgeDrive={currentPledgeDrive} /> : null
                                     }
-
-                                    <h4 className="charts--title2">Of Previous Donors</h4>
                                     {
                                         currentPledgeDrive ?
                                             <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null

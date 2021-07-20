@@ -1,4 +1,12 @@
-/* View All Orders, View All Orders With Params*/
+/* Colors {
+    rgb(218, 63, 14),
+    rgb(65, 78, 92),
+    rgb(50, 55, 60),
+    rgb(34, 151, 169),
+    rgb(135, 159, 183),
+    rgb(26, 83, 156),
+    rgb(249, 249, 249),
+} */
 .mainContainer {
 padding-right: 0rem;
 padding-left: 0rem;
@@ -52,10 +60,7 @@ margin-bottom: 1rem;
     flex-direction: row;
     justify-content: space-around;
     align-items: baseline;
-}
-
-.header3--a__legend {
-    margin-left: 2rem;
+    margin-top: 0.75rem;
 }
 
 .content {
@@ -82,19 +87,34 @@ margin-bottom: 1rem;
     border-top: 1px solid #dee2e6;
 }
 
+.tableBody {
+    max-height: 40rem;
+    overflow: scroll;
+}
+
 .frequencyIcon {
     text-align: center;
+}
+
+.noGifts {
+    text-align: center;
+    margin: 5rem 0 5rem 0;
 }
 
 .charts {
     width: 25%;
     margin-top: 1.5rem;
+    padding-left: 1rem;
 }
 
 .charts--title2 {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
     border-top: 0.1rem black solid;
+}
+
+.numOfDonAndNumOfGift {
+    margin-top: 1rem;
 }
 
 .sustainingMembership {
@@ -110,38 +130,3 @@ margin-bottom: 1rem;
     text-align: center;
     border-top: 0.05rem black solid;
 }
-
-/* .fa {
-    margin: 0.25;
-} */
-
- 
-/* .noOrders {
-    text-align: center;
-    margin: 5rem 0 5rem 0;
-} */
-
-/* Order Details View */
-/* .detailsPage {
-    display: flex;
-    align-items: top;
-}
-
-.detailsContainer {
-    padding-top: 3.5rem;
-    display: flex;
-    flex-direction: column;
-    align-content: space-around;
-}
-
-.orderHeader{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-} 
-
- */

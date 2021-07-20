@@ -43,6 +43,7 @@ export const OneTimeGiftsBySameDonor = ({ currentPledgeDrive }) => {
 
     return gifts && gifts.length > 0 ? (
         <>
+            <h4 className="charts--title2">Of Previous Donors</h4>
             <div className='header'>
                 <div className='links'>
                     {

@@ -53,20 +53,22 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
                 label: 'Number Of Gifts Given By Donors Over Time',
                 data: dataForChart,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(218, 63, 14, 1)',
+                    'rgba(65, 78, 92, 1)',
+                    'rgba(34, 151, 169, 1)',
+                    'rgba(135, 159, 183, 1)',
+                    'rgba(50, 55, 60, 1)',
+                    'rgba(26, 83, 156, 1)',
+                    'rgba(249, 249, 249, 1)',
                 ],
                 borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
+                    'rgba(218, 63, 14, 1)',
+                    'rgba(65, 78, 92, 1)',
+                    'rgba(34, 151, 169, 1)',
+                    'rgba(135, 159, 183, 1)',
+                    'rgba(50, 55, 60, 1)',
+                    'rgba(26, 83, 156, 1)',
+                    'rgba(249, 249, 249, 1)',
                 ],
                 borderWidth: 1,
             },
@@ -75,15 +77,8 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
 
     return dataForChart.length > 0 ? (
         <>
-            <div className='header'>
-                <h6 className='title'>Number Of Gifts Given By Donors To Date</h6>
-                <div className='links'>
-                    <a
-                        className='btn btn-gh'
-                        href='https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/Doughnut.js'
-                    >
-                    </a>
-                </div>
+            <div className='numOfDonAndNumOfGift'>
+                <h6 className='title'>Number Of Gifts Given By Number Of Donors To Date</h6>
             </div>
             <Doughnut data={data} />
         </>

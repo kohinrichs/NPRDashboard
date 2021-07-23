@@ -12,25 +12,48 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
     const [visibleGifts, setVisibleGifts] = useState([]);
     const [firstTimeDonorIds, setFirstTimeDonorIds] = useState([]);
 
-    useEffect(() => {
-        getFirstTimeDonorIds(currentPledgeDriveEndDate)
-            .then(setFirstTimeDonorIds)
-    }, []);
-
-    useEffect(() => {
-        getAllFrequencies()
-    }, []);
-
-    useEffect(() => {
-        setVisibleGifts(gifts)
-    }, [gifts])
 
     const dateFormatter = (date) => {
+        const allDate = date.split('T')
+        const ymdDate = allDate[0].split('-')
+
+        const year = ymdDate[0];
+        const month = ymdDate[1];
+        const day = ymdDate[2];
+
+        return month + '-' + day + '-' + year;
+    };
+
+    const dateFormatter01 = (date) => {
         const allDate = date.split('T')
         return allDate[0];
     };
 
-    const currentPledgeDriveEndDate = dateFormatter(currentPledgeDrive.endDate);
+    const currentPledgeDriveEndDate = dateFormatter01(currentPledgeDrive.endDate);
+
+    useEffect(() => {
+        getAllFrequencies()
+    }, [currentPledgeDrive]);
+
+    useEffect(() => {
+        setVisibleGifts(gifts)
+    }, [])
+
+    // https://www.benmvp.com/blog/handling-async-react-component-effects-after-unmount/
+    useEffect(() => {
+        let mounted = true;
+
+        if (currentPledgeDrive) {
+            getFirstTimeDonorIds(currentPledgeDriveEndDate).then((data) => {
+                if (mounted) {
+                    setFirstTimeDonorIds(data);
+                }
+            });
+        }
+        return () => {
+            mounted = false
+        }
+    }, []);
 
     // would it make more sense to hit the API again?
     const filterPledgeDriveTable = (e) => {

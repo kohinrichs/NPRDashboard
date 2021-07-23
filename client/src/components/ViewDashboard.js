@@ -70,10 +70,10 @@ export const ViewDashboard = () => {
 
                                 </div>
 
-                                {/* {
+                                {gifts.length !== 0 ?
                                     <GiftsPerDay key={currentPledgeDrive.id + 4} currentPledgeDrive={currentPledgeDrive}
-                                        key={gifts + 1} gifts={gifts} />
-                                } */}
+                                        key={gifts + 1} gifts={gifts} /> : null
+                                }
 
                             </div>
 

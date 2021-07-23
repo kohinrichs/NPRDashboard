@@ -13,6 +13,6 @@ namespace NPRDashboard.Repositories
         Dictionary<int, int> GetNumOfDonorsAndNumOfGift(DateTime pledgeDriveEndDate);
         List<Gift> GetNewRecurringGiftsFromPreviousDonors(DateTime pledgeDriveStartDate, DateTime pledgeDriveEndDate);
         List<Gift> GetListOfOneTimeGiftsBySameDonor(DateTime pledgeDriveEndDate);
-
+        List<int> GetFirstTimeDonorIds(DateTime pledgeDriveEndDate);
     }
 }

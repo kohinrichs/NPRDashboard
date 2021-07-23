@@ -1,13 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Container, FormGroup, Input, Table } from 'reactstrap';
 import { FrequencyContext } from '../providers/FrequencyProvider';
+import { GiftContext } from '../providers/GiftProvider';
 
 
 export const GiftTable = ({ currentPledgeDrive, gifts }) => {
 
     const { frequency, getAllFrequencies } = useContext(FrequencyContext);
+    const { getFirstTimeDonorIds } = useContext(GiftContext);
 
     const [visibleGifts, setVisibleGifts] = useState([]);
+    const [firstTimeDonorIds, setFirstTimeDonorIds] = useState([]);
+
+    useEffect(() => {
+        getFirstTimeDonorIds(currentPledgeDriveEndDate)
+            .then(setFirstTimeDonorIds)
+    }, []);
 
     useEffect(() => {
         getAllFrequencies()
@@ -19,14 +27,10 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
 
     const dateFormatter = (date) => {
         const allDate = date.split('T')
-        const ymdDate = allDate[0].split('-')
-
-        const year = ymdDate[0];
-        const month = ymdDate[1];
-        const day = ymdDate[2];
-
-        return month + '-' + day + '-' + year;
+        return allDate[0];
     };
+
+    const currentPledgeDriveEndDate = dateFormatter(currentPledgeDrive.endDate);
 
     // would it make more sense to hit the API again?
     const filterPledgeDriveTable = (e) => {
@@ -122,7 +126,8 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                                 visibleGifts.map(g => {
                                                     return <tr key={g.id}>
                                                         {
-                                                            g.donorProfile.numberOfGifts === 1 ? <td><b>#1</b> - {g.donorProfile.lastName}</td> : <td>{g.donorProfile.lastName}</td>
+
+                                                            firstTimeDonorIds.find(i => i === g.donorProfile.id) ? <td><b>#1</b> - {g.donorProfile.lastName}</td> : <td>{g.donorProfile.lastName}</td>
                                                         }
                                                         <td>{g.donorProfile.firstName}</td>
                                                         <td>${g.amount}</td>

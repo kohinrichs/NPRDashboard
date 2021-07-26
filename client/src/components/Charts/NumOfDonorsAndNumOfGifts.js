@@ -78,7 +78,7 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
     return dataForChart.length > 0 ? (
         <>
             <div className='numOfDonAndNumOfGift'>
-                <h6 className='title'>Number Of Gifts Given By Number Of Donors To Date</h6>
+                <h6 className='title'>Number Of Gifts Given To Date By Number Of Donors</h6>
             </div>
             <Doughnut data={data} />
         </>

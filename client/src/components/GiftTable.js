@@ -1,21 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Container, FormGroup, Input, Table } from 'reactstrap';
 import { FrequencyContext } from '../providers/FrequencyProvider';
+import { GiftContext } from '../providers/GiftProvider';
 
 
 export const GiftTable = ({ currentPledgeDrive, gifts }) => {
 
     const { frequency, getAllFrequencies } = useContext(FrequencyContext);
+    const { getFirstTimeDonorIds } = useContext(GiftContext);
 
     const [visibleGifts, setVisibleGifts] = useState([]);
+    const [firstTimeDonorIds, setFirstTimeDonorIds] = useState([]);
 
-    useEffect(() => {
-        getAllFrequencies()
-    }, []);
-
-    useEffect(() => {
-        setVisibleGifts(gifts)
-    }, [gifts])
 
     const dateFormatter = (date) => {
         const allDate = date.split('T')
@@ -27,6 +23,37 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
 
         return month + '-' + day + '-' + year;
     };
+
+    const dateFormatter01 = (date) => {
+        const allDate = date.split('T')
+        return allDate[0];
+    };
+
+    const currentPledgeDriveEndDate = dateFormatter01(currentPledgeDrive.endDate);
+
+    useEffect(() => {
+        getAllFrequencies()
+    }, [currentPledgeDrive]);
+
+    useEffect(() => {
+        setVisibleGifts(gifts)
+    }, [])
+
+    // https://www.benmvp.com/blog/handling-async-react-component-effects-after-unmount/
+    useEffect(() => {
+        let mounted = true;
+
+        if (currentPledgeDrive) {
+            getFirstTimeDonorIds(currentPledgeDriveEndDate).then((data) => {
+                if (mounted) {
+                    setFirstTimeDonorIds(data);
+                }
+            });
+        }
+        return () => {
+            mounted = false
+        }
+    }, []);
 
     // would it make more sense to hit the API again?
     const filterPledgeDriveTable = (e) => {
@@ -122,7 +149,8 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                                 visibleGifts.map(g => {
                                                     return <tr key={g.id}>
                                                         {
-                                                            g.donorProfile.numberOfGifts === 1 ? <td><b>#1</b> - {g.donorProfile.lastName}</td> : <td>{g.donorProfile.lastName}</td>
+
+                                                            firstTimeDonorIds.find(i => i === g.donorProfile.id) ? <td><b>#1</b> - {g.donorProfile.lastName}</td> : <td>{g.donorProfile.lastName}</td>
                                                         }
                                                         <td>{g.donorProfile.firstName}</td>
                                                         <td>${g.amount}</td>

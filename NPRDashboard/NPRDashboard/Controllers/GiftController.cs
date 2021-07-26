@@ -53,5 +53,12 @@ namespace NPRDashboard.Controllers
         {
             return Ok(_giftRepository.GetListOfOneTimeGiftsBySameDonor(pledgeDriveEndDate));
         }
+
+        // #6
+        [HttpGet("getfirsttimedonorids/{pledgeDriveEndDate}")]
+        public IActionResult GetFirstTimeDonorIds(DateTime pledgeDriveEndDate)
+        {
+            return Ok(_giftRepository.GetFirstTimeDonorIds(pledgeDriveEndDate));
+        }
     }
 }

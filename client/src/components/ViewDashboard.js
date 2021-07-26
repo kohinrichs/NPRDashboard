@@ -56,7 +56,6 @@ export const ViewDashboard = () => {
                         </FormGroup>
                     </Col>
 
-                    {/* <h1 className="hello">Hello. Please select a pledge drive.</h1> <i className="fas fa-level-up-alt"></i> */}
                 </div>
 
                 <div className="content">
@@ -71,35 +70,26 @@ export const ViewDashboard = () => {
 
                                 </div>
 
-                                {/* {
+                                {gifts.length !== 0 ?
                                     <GiftsPerDay key={currentPledgeDrive.id + 4} currentPledgeDrive={currentPledgeDrive}
-                                        key={gifts + 1} gifts={gifts} />
-                                } */}
+                                        key={gifts + 1} gifts={gifts} /> : null
+                                }
 
                             </div>
-                            <div className="charts">
-                                <div>
-                                    {
-                                        currentPledgeDrive ?
-                                            <RecurringVsOneTime key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive} /> : null
-                                    }
 
-                                    {
-                                        currentPledgeDrive ?
-                                            <NumOfDonorsAndNumOfGifts key={currentPledgeDrive.id + 1} currentPledgeDrive={currentPledgeDrive} /> : null
-                                    }
-                                    {
-                                        currentPledgeDrive ?
-                                            <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} /> : null
-                                    }
+                            {gifts.length !== 0 ?
+                                <div className="charts">
 
-                                    {
-                                        currentPledgeDrive ?
-                                            <NewRecurringGiftsFromPreviousDonor key={currentPledgeDrive.id + 3} currentPledgeDrive={currentPledgeDrive} /> : null
-                                    }
-                                </div>
-                            </div>
-                        </> : null
+                                    <RecurringVsOneTime key={currentPledgeDrive.id} currentPledgeDrive={currentPledgeDrive} />
+
+                                    <NumOfDonorsAndNumOfGifts key={currentPledgeDrive.id + 1} currentPledgeDrive={currentPledgeDrive} />
+
+                                    <OneTimeGiftsBySameDonor key={currentPledgeDrive.id + 2} currentPledgeDrive={currentPledgeDrive} />
+
+                                    <NewRecurringGiftsFromPreviousDonor key={currentPledgeDrive.id + 3} currentPledgeDrive={currentPledgeDrive} />
+                                </div> : null
+                            }
+                        </> : <h3 className="hello">hello. select a pledge drive. <i className="fas fa-level-up-alt"></i></h3>
                     }
                 </div>
                 <div className="footer">

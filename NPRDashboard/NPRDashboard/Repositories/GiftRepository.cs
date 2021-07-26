@@ -228,6 +228,42 @@ namespace NPRDashboard.Repositories
             }
         }
 
+        // #6 - List of 1st time donor Ids
+        public List<int> GetFirstTimeDonorIds(DateTime pledgeDriveEndDate)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                       SELECT SUBQUERY.DonorProfileId as DonorId FROM
+	                        (SELECT SUBQUERY.DonorProfileId, COUNT(SUBQUERY.Id) as NumberOfGifts FROM
+			                        (SELECT g.Id, g.DonorProfileId
+			                        FROM Gift g
+			                        WHERE GiftDate <= @EndDate) AS SUBQUERY
+	                        Group BY SUBQUERY.DonorProfileId) AS SUBQUERY
+	                        WHERE NumberOfGifts = 1";
+
+                    DbUtils.AddParameter(cmd, "@EndDate", pledgeDriveEndDate);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var donorList = new List<int>();
+
+                    while (reader.Read())
+                    {
+                        int DonorId = DbUtils.GetInt(reader, "DonorId");
+
+                        donorList.Add(DonorId);
+                    }
+                    reader.Close();
+
+                    return donorList;
+                }
+            }
+        }
+
 
         // To Make A Gift
         private Gift NewGiftFromDb(SqlDataReader reader)

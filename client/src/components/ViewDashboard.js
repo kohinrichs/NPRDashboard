@@ -22,11 +22,11 @@ export const ViewDashboard = () => {
         getAllPledgeDrives()
     }, []);
 
+    // Need to add UUID for component keys
 
     return (
         <>
             <Container className="mainContainer">
-                {/* className="col-sm-6 col-lg-10 justify-content-center" */}
                 <div className="pledgeDriveHeader">
                     <h2>WPLN | Pledge Drive Dashboard</h2>
                     <Col xs="6">
@@ -37,11 +37,15 @@ export const ViewDashboard = () => {
                                 id="pledgeDrive"
                                 value={pledgeDrive.name}
                                 onChange={(e) => {
-                                    getPledgeDriveById(parseInt(e.target.value))
-                                        .then(setCurrentPledgeDrive)
-                                        .then(() =>
-                                            getAllGiftsByPledgeDriveId(parseInt(e.target.value)))
-                                        .then(setGifts)
+                                    if (e.target.value === "0") {
+                                        setCurrentPledgeDrive();
+                                    } else {
+                                        getPledgeDriveById(parseInt(e.target.value))
+                                            .then(setCurrentPledgeDrive)
+                                            .then(() =>
+                                                getAllGiftsByPledgeDriveId(parseInt(e.target.value)))
+                                            .then(setGifts)
+                                    }
                                 }}
                             >
                                 <option value="0">Select A Pledge Drive</option>

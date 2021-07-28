@@ -16,8 +16,18 @@ export const NewRecurringGiftsFromPreviousDonor = ({ currentPledgeDrive }) => {
     const currentPledgeDriveEndDate = dateFormatter(currentPledgeDrive.endDate);
 
     useEffect(() => {
-        getNewRecurringGiftsFromPreviousDonors(currentPledgeDriveStartDate, currentPledgeDriveEndDate)
-            .then(setNumOfGifts)
+        let mounted = true;
+
+        if (currentPledgeDrive) {
+            getNewRecurringGiftsFromPreviousDonors(currentPledgeDriveStartDate, currentPledgeDriveEndDate).then((data) => {
+                if (mounted) {
+                    setNumOfGifts(data);
+                }
+            });
+        }
+        return () => {
+            mounted = false;
+        }
     }, []);
 
     let counter = 0;

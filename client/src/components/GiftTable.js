@@ -51,11 +51,12 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
             });
         }
         return () => {
-            mounted = false
+            mounted = false;
         }
     }, []);
 
-    // would it make more sense to hit the API again?
+    // Filetering state rather than making a call to the API everytime the select changes. If the dashbaord was live during a pledge drive, it would
+    // make more sense sense to make an API call for the current pledge drive to the data is as accurate as possible.
     const filterPledgeDriveTable = (e) => {
         if (parseInt(e.target.value) === 0) {
             setVisibleGifts(gifts)
@@ -70,7 +71,6 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
         }
     };
 
-    // Total number of gifts for the Pledge Drive
     let totalNumberOfGifts = gifts.length;
 
     return currentPledgeDrive ? (
@@ -131,6 +131,12 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                 </FormGroup>
                             </div>
 
+                            <div className="header3--a">
+                                <h6 className="header3--a__legend"> First Time Donor : <strong>#1</strong></h6>
+                                <h6 className="header3--a__legend">One Time Gift : <i className="fas fa-circle"></i></h6>
+                                <h6 className="header3--a__legend">Sustaining Membership: <i className="fas fa-undo-alt"></i></h6>
+                            </div>
+
                             {
                                 visibleGifts.length > 0 ? <div className="tableBody">
                                     <Table hover bordered>
@@ -166,11 +172,6 @@ export const GiftTable = ({ currentPledgeDrive, gifts }) => {
                                 </div>
                                     : <h4 className="noGifts">No gifts match this filter.</h4>
                             }
-                            <div className="header3--a">
-                                <h6 className="header3--a__legend"> First Time Donor : <strong>#1</strong></h6>
-                                <h6 className="header3--a__legend">One Time Gift : <i className="fas fa-circle"></i></h6>
-                                <h6 className="header3--a__legend">Sustaining Membership: <i className="fas fa-undo-alt"></i></h6>
-                            </div>
                         </Container> : <h4 className="noGifts">There are no gifts for this pledge drive.</h4>
                 }
             </Container >

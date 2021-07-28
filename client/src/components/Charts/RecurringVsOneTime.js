@@ -11,8 +11,18 @@ export const RecurringVsOneTime = ({ currentPledgeDrive }) => {
     const currentPledgeDriveId = currentPledgeDrive.id;
 
     useEffect(() => {
-        getNumOfGiftsByFrequency(currentPledgeDriveId)
-            .then(setGiftsByFrequency)
+        let mounted = true;
+
+        if (currentPledgeDrive) {
+            getNumOfGiftsByFrequency(currentPledgeDriveId).then((data) => {
+                if (mounted) {
+                    setGiftsByFrequency(data);
+                }
+            });
+        }
+        return () => {
+            mounted = false;
+        }
     }, []);
 
     let labelsForChart = [];
@@ -67,14 +77,6 @@ export const RecurringVsOneTime = ({ currentPledgeDrive }) => {
             <h3 className="charts--title1">By The Numbers</h3>
             <div className='header'>
                 <h6 className='title'>One Time vs Sustaining Memberships</h6>
-                <div className='links'>
-                    <a
-                        className='btn btn-gh'
-                        href='https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/Doughnut.js'
-                    >
-                        {/* One Time vs Sustaining Memberships */}
-                    </a>
-                </div>
             </div>
             <Doughnut data={data} />
         </>

@@ -19,8 +19,8 @@ export const GiftProvider = (props) => {
             .then((res) => res.json())
     };
 
-    const getNumOfDonorsAndNumOfGift = (pledgeDriveEndDate) => {
-        return fetch(`/api/gift/getnumofdonorsbynumofgifts/${pledgeDriveEndDate}`, {
+    const getNumOfDonorsAndNumOfGift = (pledgeDriveEndDate, pledgeDriveId) => {
+        return fetch(`/api/gift/getnumofdonorsbynumofgifts/${pledgeDriveEndDate}/${pledgeDriveId}`, {
             method: 'GET',
         })
             .then((res) => res.json())
@@ -46,6 +46,7 @@ export const GiftProvider = (props) => {
         })
             .then((res) => res.json())
     };
+
 
     return (
         <GiftContext.Provider

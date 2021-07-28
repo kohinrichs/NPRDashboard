@@ -14,12 +14,13 @@ export const NumOfDonorsAndNumOfGifts = ({ currentPledgeDrive }) => {
     };
 
     const currentPledgeDriveEndDate = dateFormatter(currentPledgeDrive.endDate);
+    const currentPledgeDriveId = parseInt(currentPledgeDrive.id)
 
     useEffect(() => {
         let mounted = true;
 
         if (currentPledgeDrive) {
-            getNumOfDonorsAndNumOfGift(currentPledgeDriveEndDate).then((data) => {
+            getNumOfDonorsAndNumOfGift(currentPledgeDriveEndDate, currentPledgeDriveId).then((data) => {
                 if (mounted) {
                     setNumOfGifts(data);
                 }

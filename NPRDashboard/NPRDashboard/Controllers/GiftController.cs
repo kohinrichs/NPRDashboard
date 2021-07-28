@@ -34,10 +34,10 @@ namespace NPRDashboard.Controllers
         }
 
         // #3
-        [HttpGet("getnumofdonorsbynumofgifts/{pledgeDriveEndDate}")]
-        public IActionResult GetNumOfDonorsAndNumOfGift(DateTime pledgeDriveEndDate)
+        [HttpGet("getnumofdonorsbynumofgifts/{pledgeDriveEndDate}/{pledgeDriveId}")]
+        public IActionResult GetNumOfDonorsAndNumOfGift(DateTime pledgeDriveEndDate, int pledgeDriveId)
         {
-            return Ok(_giftRepository.GetNumOfDonorsAndNumOfGift(pledgeDriveEndDate));
+            return Ok(_giftRepository.GetNumOfDonorsAndNumOfGift(pledgeDriveEndDate, pledgeDriveId));
         }
 
         // #4 

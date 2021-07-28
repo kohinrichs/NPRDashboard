@@ -1,12 +1,7 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React from 'react';
 import { Line } from 'react-chartjs-2';
-// import { GiftContext } from '../../providers/GiftProvider';
 
 export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
-
-    // const { getNumOfDonorsAndNumOfGift } = useContext(GiftContext);
-
-    // const [numOfGifts, setNumOfGifts] = useState();
 
     const dateFormatter = (date) => {
         const allDate = date.split('T')
@@ -40,18 +35,10 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
         return month + '-' + day;
     };
 
-
-    const currentPledgeDriveStartDate = dateFormatter(currentPledgeDrive.startDate);
-    const currentPledgeDriveEndDate = dateFormatter(currentPledgeDrive.endDate);
-
-    // https://stackoverflow.com/questions/542938/how-do-i-get-the-number-of-days-between-two-dates-in-javascript
-    // Research more on Date.parse
-    var numOfDays = Math.floor((Date.parse(currentPledgeDriveEndDate) - Date.parse(currentPledgeDriveStartDate)) / 86400000);
-
     let arrayOfDates = [];
 
+    // Function to get array of all the dates of the Pledge Drive
     // https://stackoverflow.com/questions/26164005/get-a-list-of-dates-between-two-dates-using-javascript
-
     let getDateArray = (startDate, endDate) => {
 
         const dateMove = new Date(startDate);
@@ -64,48 +51,8 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
         };
     };
 
-
-
     if (currentPledgeDrive) {
         getDateArray(dateFormatter02(currentPledgeDrive.startDate), dateFormatter02(currentPledgeDrive.endDate))
-        // var getDateArray = (start, end) => {
-        //     for (let arr=[], dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
-        //         arrayOfDates.push(new Date(dt));
-        //     }
-        //      return arr;
-        // };
-
-        // const getDateArray = function (start, end) {
-        //     debugger
-
-        //     // const arr = new Array();
-        //     const dt = new Date(start);
-
-        //     while (dt <= end) {
-        //         arrayOfDates.push(new Date(dt));
-        //         dt.setDate(dt.getDate() + 1);
-        //     }
-        // }
-        // getDateArray(dateFormatter02(currentPledgeDrive.startDate), dateFormatter02(currentPledgeDrive.endDate))
-        // This doesn't handle different months...
-        // for (let i = 0; i < numOfDays + 1; i++) {
-
-        //     const dateFormatterPlusOne = (date) => {
-        //         const ymdDate = date.split('-')
-        //         debugger
-        //         const year = ymdDate[2];
-        //         const month = ymdDate[0]
-        //         const day = parseInt((ymdDate[1]), 10)
-        //         let dayPlusOne = day + i
-
-        //         if (dayPlusOne.toString().length === 1) {
-        //             dayPlusOne = "0" + dayPlusOne.toString()
-        //         }
-        //         arrayOfDates.push(year + '-' + month + '-' + dayPlusOne);
-        //     };
-
-        //     dateFormatterPlusOne(currentPledgeDriveStartDate)
-        // }
     }
 
     let labelsForChart = [];
@@ -114,7 +61,7 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
     // need to loop through the arrayOfDates and count the bumber of gifts that have that
     // date as the gift date, those counts get pushed to array to become the data
 
-
+    // loop through the ArrayOfDates and filter through the gifts array to find the number of gift that match that date
     if (gifts) {
         for (let i = 0; i < arrayOfDates.length; i++) {
             let giftsByDate = gifts.filter(g => (dateFormatter02(g.giftDate)) === arrayOfDates[i])
@@ -122,6 +69,7 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
         }
     }
 
+    // format the dates for chart labels
     if (arrayOfDates.length > 0) {
         arrayOfDates.map((d) => {
             labelsForChart.push(dateFormatter03(d));
@@ -159,15 +107,8 @@ export const GiftsPerDay = ({ currentPledgeDrive, gifts }) => {
 
     return dataForChart.length > 0 ? (
         <>
-            <div className='header'>
+            <div className='giftsPerDay'>
                 <h6 className='title'>Gifts Per Day</h6>
-                {/* <div className='links'>
-                    <a
-                        className='btn btn-gh'
-                        href='https://github.com/reactchartjs/react-chartjs-2/blob/master/example/src/charts/Line.js'
-                    >
-                    </a>
-                </div> */}
             </div>
             <Line options={options} data={data} />
         </>

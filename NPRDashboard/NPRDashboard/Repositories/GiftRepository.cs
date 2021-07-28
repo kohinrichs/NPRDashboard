@@ -89,7 +89,7 @@ namespace NPRDashboard.Repositories
         }
 
         // #3 Get List Number of Donors Who Gave Number Of Gifts
-        public Dictionary<int, int> GetNumOfDonorsAndNumOfGift(DateTime pledgeDriveEndDate)
+        public Dictionary<int, int> GetNumOfDonorsAndNumOfGift(DateTime pledgeDriveEndDate, int pledgeDriveId)
         {
             using (var conn = Connection)
             {
@@ -98,14 +98,20 @@ namespace NPRDashboard.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT Count(*) as NumberOfDonors, SUBQUERY.NumberOfGifts FROM
-	                        (SELECT SUBQUERY.DonorProfileId, COUNT(SUBQUERY.Id) as NumberOfGifts FROM
-			                        (SELECT g.Id, g.DonorProfileId
-			                        FROM Gift g
-			                        WHERE GiftDate <= @EndDate) AS SUBQUERY
-	                        Group BY SUBQUERY.DonorProfileId) AS SUBQUERY
-	                        GROUP BY SUBQUERY.NumberOfGifts";
+	                            (SELECT SUBQUERY.DonorProfileId, COUNT(SUBQUERY.Id) as NumberOfGifts FROM
+			                            (SELECT g.Id, g.DonorProfileId
+			                            FROM Gift g
+			                            WHERE GiftDate <= @EndDate) AS SUBQUERY
+			                            WHERE DonorProfileId IN (
+			                            SELECT DonorProfileId 
+				                            FROM Gift
+					                            WHERE PledgeDriveId = @PledgeDriveId
+					                            )
+	                            Group BY SUBQUERY.DonorProfileId) AS SUBQUERY
+	                            GROUP BY SUBQUERY.NumberOfGifts";
 
                     DbUtils.AddParameter(cmd, "@EndDate", pledgeDriveEndDate);
+                    DbUtils.AddParameter(cmd, "@PledgeDriveId", pledgeDriveId);
 
                     var reader = cmd.ExecuteReader();
 
